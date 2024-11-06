@@ -43,7 +43,7 @@
   background-color: #000000;
 }
 
-.chess-board__square {
+.square {
   width: 12.5%;
   height: 12.5%;
   float: left;
@@ -53,15 +53,15 @@
   position: relative;
 }
 
-.chess-board__square_white {
-  background-color: #769656;
-}
-
-.chess-board__square_black {
+.square_white {
   background-color: #eeeed2;
 }
 
-.chess-coordinate {
+.square_black {
+  background-color: #769656;
+}
+
+.coordinate {
   height: auto;
   display: flex;
   position: absolute;
@@ -72,19 +72,19 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.chess-rank {
+.rank {
   top: 4%;
   right: -20%;
   left: auto;
 }
 
-.chess-piece {
+.piece {
   width: 100%;
   z-index: 1;
   cursor: pointer;
 }
 
-.chess-piece img {
+.piece img {
   max-width: 100%;
   width: 100%;
   height: auto;
@@ -176,7 +176,7 @@ a:active {
   .content {
     justify-content: center;
   }
-  .chess-coordinate {
+  .coordinate {
     font-size: 8px;
   }
   .winning-message {
