@@ -183,3 +183,13 @@ a:active {
     margin-top: 0;
   }
 }
+
+.highlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 20%, rgba(255, 215, 0, 0.1) 80%);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  pointer-events: none;
+  z-index: 1;
+}

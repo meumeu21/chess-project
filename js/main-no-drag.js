@@ -14,6 +14,9 @@ const pieces = document.getElementsByClassName("piece");
 const piecesImages = document.getElementsByTagName("img");
 const chessBoard = document.querySelector(".chess-board");
 
+let selectedPiece = null;
+let selectedSquareId = null;
+
 setupBoardSquares();
 setupPieces();
 fillBoardSquaresArray();
@@ -372,8 +375,7 @@ function performPromotion(
   promotionPiece = pieceType;
   piece = createChessPiece(pieceType, pieceColor, "piece");
 
-  piece.addEventListener("dragstart", drag);
-  piece.setAttribute("draggable", true);
+  piece.setAttribute("draggable", false);
   piece.firstChild.setAttribute("draggable", false);
   piece.id = pieceType + pieceId;
 
@@ -420,8 +422,6 @@ function deepCopyArray(array) {
 
 function setupBoardSquares() {
   for (let i = 0; i < boardSquares.length; i++) {
-    boardSquares[i].addEventListener("dragover", allowDrop);
-    boardSquares[i].addEventListener("drop", drop);
     let row = 8 - Math.floor(i / 8);
     let column = String.fromCharCode(97 + (i % 8));
     let square = boardSquares[i];
@@ -430,15 +430,77 @@ function setupBoardSquares() {
 }
 function setupPieces() {
   for (let i = 0; i < pieces.length; i++) {
-    pieces[i].addEventListener("dragstart", drag);
-    pieces[i].setAttribute("draggable", true);
-    pieces[i].id =
-      pieces[i].className.split(" ")[1] + pieces[i].parentElement.id;
-  }
-  for (let i = 0; i < piecesImages.length; i++) {
-    piecesImages[i].setAttribute("draggable", false);
+    pieces[i].addEventListener("click", handlePieceClick);
+    pieces[i].setAttribute("draggable", false); // Disable drag
+    pieces[i].id = pieces[i].className.split(" ")[1] + pieces[i].parentElement.id;
   }
 }
+
+function handlePieceClick(event) {
+  const piece = event.target.closest(".piece");
+  const pieceColor = piece.getAttribute("color");
+
+  if ((isWhiteTurn && pieceColor == "white") || (!isWhiteTurn && pieceColor == "black")) {
+    clearHighlights(); // Clear previous highlights
+    selectedPiece = piece;
+    selectedSquareId = piece.parentNode.id;
+    highlightSquare(selectedSquareId, "selected");
+
+    const pieceType = piece.classList[1];
+    const pieceId = piece.id;
+    const pieceObject = { pieceColor, pieceType, pieceId };
+    const legalSquares = getPossibleMoves(selectedSquareId, pieceObject, boardSquaresArray);
+    highlightLegalMoves(legalSquares);
+  }
+}
+
+function highlightSquare(squareId, className) {
+  document.getElementById(squareId).classList.add(className);
+}
+
+function highlightLegalMoves(legalSquares) {
+  legalSquares.forEach(squareId => highlightSquare(squareId, "highlight"));
+}
+
+function clearHighlights() {
+  document.querySelectorAll(".highlight, .selected").forEach(square => {
+    square.classList.remove("highlight", "selected");
+  });
+}
+
+chessBoard.addEventListener("click", handleBoardClick);
+
+function handleBoardClick(event) {
+  const square = event.target.closest(".square");
+  if (!square || !selectedPiece) return;
+
+  const destinationSquareId = square.id;
+  const legalSquares = getPossibleMoves(selectedSquareId, {
+    pieceColor: selectedPiece.getAttribute("color"),
+    pieceType: selectedPiece.classList[1],
+    pieceId: selectedPiece.id
+  }, boardSquaresArray);
+
+  if (legalSquares.includes(destinationSquareId)) {
+    movePiece(selectedSquareId, destinationSquareId);
+  }
+}
+
+function movePiece(startingSquareId, destinationSquareId) {
+  const pieceColor = selectedPiece.getAttribute("color");
+  const pieceType = selectedPiece.classList[1];
+
+  document.getElementById(destinationSquareId).appendChild(selectedPiece);
+  updateBoardSquaresArray(startingSquareId, destinationSquareId, boardSquaresArray);
+
+  makeMove(startingSquareId, destinationSquareId, pieceType, pieceColor, false);
+  isWhiteTurn = !isWhiteTurn;
+  clearHighlights();
+  checkForEndGame();
+  selectedPiece = null;
+}
+
+
 function allowDrop(ev) {
   ev.preventDefault();
 }
@@ -465,9 +527,6 @@ function drag(ev) {
       pieceObject,
       boardSquaresArray
     );
-    legalSquares = isMoveValidAgainstCheck(legalSquares, startingSquareId, pieceColor, pieceType);
-
-    highlightPossibleMoves(legalSquares);
     let legalSquaresJson = JSON.stringify(legalSquares);
     ev.dataTransfer.setData("application/json", legalSquaresJson);
   }
@@ -605,6 +664,10 @@ function drop(ev) {
         destinationSquare.removeChild(children[i]);
       }
     }
+    // while (destinationSquare.firstChild) {
+    //   if(!destinationSquare.firstChild.classList.contains("coordinate"))
+    //    destinationSquare.removeChild(destinationSquare.firstChild);
+    // }
     destinationSquare.appendChild(piece);
     isWhiteTurn = !isWhiteTurn;
     updateBoardSquaresArray(
@@ -1324,14 +1387,7 @@ function checkForEndGame(){
   let isDraw = threeFoldRepetition||insufficientMaterial || fiftyMovesRule;
   if(isDraw){
     allowMovement=false;
-    showAlert("ничья");
-
-    document.addEventListener('dragstart', function(event) {
-        event.preventDefault();
-    });
-     document.addEventListener('drop', function(event) {
-        event.preventDefault();
-    });
+    showAlert("Draw");
 
   }
 }
@@ -1503,24 +1559,3 @@ function endGame() {
   seconds = 0;
   isGameStarted = false;
 }
-
-function highlightPossibleMoves(legalSquares) {
-  clearHighlight();
-
-  legalSquares.forEach((squareId) => {
-    const square = document.getElementById(squareId);
-    if (square) {
-      square.classList.add("highlight");
-    }
-  });
-}
-
-function clearHighlight() {
-  Array.from(boardSquares).forEach((square) => {
-    square.classList.remove("highlight");
-  });
-}
-
-chessBoard.addEventListener("drop", () => {
-  clearHighlight();
-});

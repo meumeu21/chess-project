@@ -1,7 +1,3 @@
-let isGameStarted = false;
-let timerInterval;
-let seconds = 0;
-
 let boardSquaresArray = [];
 let positionArray=[];
 let moves = [];
@@ -12,7 +8,7 @@ let allowMovement = true;
 const boardSquares = document.getElementsByClassName("square");
 const pieces = document.getElementsByClassName("piece");
 const piecesImages = document.getElementsByTagName("img");
-const chessBoard = document.querySelector(".chess-board");
+const chessBoard = document.querySelector(".chessBoard");
 
 setupBoardSquares();
 setupPieces();
@@ -164,6 +160,8 @@ function generateFEN(boardSquares){
   fen+=" "+moveCount;
   console.log(fen);
   return fen;
+
+
 }
 
 function performCastling(
@@ -273,9 +271,6 @@ function displayPromotionChoices(
   const squareBehind2 = document.getElementById(squareBehindId2);
   const squareBehind3 = document.getElementById(squareBehindId3);
 
-  const pawnSquare = squareBehind1.querySelector("div");
-  pawnSquare.style.display = 'none';
-
   let piece1 = createChessPiece("queen", pieceColor, "promotionOption");
   let piece2 = createChessPiece("knight", pieceColor, "promotionOption");
   let piece3 = createChessPiece("rook", pieceColor, "promotionOption");
@@ -304,15 +299,17 @@ function displayPromotionChoices(
 
 function createChessPiece(pieceType, color, pieceClass) {
   let pieceName =
-    pieceType.slice() +
+    color.charAt(0).toUpperCase() +
+    color.slice(1) +
     "-" +
-    color.charAt(0) +
-    ".svg";
+    pieceType.charAt(0).toUpperCase() +
+    pieceType.slice(1) +
+    ".png";
   let pieceDiv = document.createElement("div");
   pieceDiv.className = `${pieceClass} ${pieceType}`;
   pieceDiv.setAttribute("color", color);
   let img = document.createElement("img");
-  img.src = "static/chess-pieces/" + pieceName;
+  img.src = pieceName;
   img.alt = pieceType;
   pieceDiv.appendChild(img);
   return pieceDiv;
@@ -391,6 +388,9 @@ function performPromotion(
       }
     }
   }
+  // while(destinationSquare.firstChild){
+  //   destinationSquare.removeChild(destinationSquare.firstChild);
+  // }
   destinationSquare.appendChild(piece);
   isWhiteTurn = !isWhiteTurn;
   updateBoardSquaresArray(
@@ -465,9 +465,6 @@ function drag(ev) {
       pieceObject,
       boardSquaresArray
     );
-    legalSquares = isMoveValidAgainstCheck(legalSquares, startingSquareId, pieceColor, pieceType);
-
-    highlightPossibleMoves(legalSquares);
     let legalSquaresJson = JSON.stringify(legalSquares);
     ev.dataTransfer.setData("application/json", legalSquaresJson);
   }
@@ -475,7 +472,6 @@ function drag(ev) {
 
 function drop(ev) {
   ev.preventDefault();
-  checkAndStartGame();
   let data = ev.dataTransfer.getData("text");
   let [pieceId, startingSquareId] = data.split("|");
   let legalSquaresJson = ev.dataTransfer.getData("application/json");
@@ -605,6 +601,10 @@ function drop(ev) {
         destinationSquare.removeChild(children[i]);
       }
     }
+    // while (destinationSquare.firstChild) {
+    //   if(!destinationSquare.firstChild.classList.contains("coordinate"))
+    //    destinationSquare.removeChild(destinationSquare.firstChild);
+    // }
     destinationSquare.appendChild(piece);
     isWhiteTurn = !isWhiteTurn;
     updateBoardSquaresArray(
@@ -1324,7 +1324,7 @@ function checkForEndGame(){
   let isDraw = threeFoldRepetition||insufficientMaterial || fiftyMovesRule;
   if(isDraw){
     allowMovement=false;
-    showAlert("ничья");
+    showAlert("Draw");
 
     document.addEventListener('dragstart', function(event) {
         event.preventDefault();
@@ -1336,6 +1336,26 @@ function checkForEndGame(){
   }
 }
 
+function checkForCheckMateAndStaleMate() {
+  let kingSquare = isWhiteTurn
+    ? getkingLastMove("white")
+    : getkingLastMove("black");
+  let pieceColor = isWhiteTurn ? "white" : "black";
+  let boardSquaresArrayCopy = deepCopyArray(boardSquaresArray);
+  let kingIsCheck = isKingInCheck(
+    kingSquare,
+    pieceColor,
+    boardSquaresArrayCopy
+  );
+  let possibleMoves = getAllPossibleMoves(boardSquaresArrayCopy, pieceColor);
+  if (possibleMoves.length > 0) return;
+  let message = "";
+  if(kingIsCheck)
+  isWhiteTurn ? (message = "Black Wins!") : (message = "White Wins!");
+  else
+  message="Draw";
+  showAlert(message);
+}
 function getFiftyMovesRuleCount(){
   let count=0;
   for (let i=0;i<moves.length;i++){
@@ -1390,8 +1410,8 @@ function hasInsufficientMaterial(fen){
       let whiteBishopSquare = boardSquaresArray.find(element=>(element.pieceType==="bishop" && element.pieceColor==="white"));
       let blackBishopSquare = boardSquaresArray.find(element=>(element.pieceType==="bishop" && element.pieceColor==="black"));
 
-      whiteBishopSquareColor = getSquareColor(whiteBishopSquare.squareId);
-      blackBishopSquareColor = getSquareColor(blackBishopSquare.squareId);
+      whiteBishopSquareColor = getSqaureColor(whiteBishopSquare.squareId);
+      blackBishopSquareColor = getSqaureColor(blackBishopSquare.squareId);
 
       if(whiteBishopSquareColor!== blackBishopSquareColor){
         return false;
@@ -1399,7 +1419,7 @@ function hasInsufficientMaterial(fen){
     }
     return true;
 }
-function getSquareColor(squareId){
+function getSqaureColor(squareId){
   let squareElement = document.getElementById(squareId);
   let squareColor = squareElement.classList.contains("white") ? "white" : "black";
   return squareColor;
@@ -1443,84 +1463,3 @@ function showAlert(message) {
     alert.style.display = "none";
   }, 3000);
 }
-
-
-
-
-
-// not negotiable
-
-function checkForCheckMateAndStaleMate() {
-  let kingSquare =isWhiteTurn ? getkingLastMove("white") : getkingLastMove("black");
-  let pieceColor=isWhiteTurn  ? "white": "black";
-  let boardSquaresArrayCopy = deepCopyArray(boardSquaresArray);
-  let kingIsCheck=isKingInCheck(kingSquare,pieceColor,boardSquaresArrayCopy);
-
-  if(!kingIsCheck) return;
-  let possibleMoves=getAllPossibleMoves(boardSquaresArrayCopy,pieceColor);
-  if(possibleMoves.length>0) return;
-  let message="";
-  if (kingIsCheck) {
-    isWhiteTurn  ? (message="черные выиграли!") : (message="белые выиграли!");
-  } else {
-    message="ничья"
-  }
-  showAlert(message);
-  endGame();
-}
-
-function showAlert(message) {
-  const alert= document.getElementById("winning-message");
-  alert.innerHTML=message;
-  alert.style.display="block";
-}
-
-function updateTimer() {
-  seconds++;
-  const timerElement = document.getElementById("timer");
-  timerElement.innerText = formatTime(seconds);
-}
-
-function formatTime(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-}
-
-function startTimer() {
-  timerInterval = setInterval(updateTimer, 1000);
-}
-
-function checkAndStartGame() {
-  if (!isGameStarted) {
-    isGameStarted = true;
-    startTimer();
-  }
-}
-
-function endGame() {
-  clearInterval(timerInterval);
-  seconds = 0;
-  isGameStarted = false;
-}
-
-function highlightPossibleMoves(legalSquares) {
-  clearHighlight();
-
-  legalSquares.forEach((squareId) => {
-    const square = document.getElementById(squareId);
-    if (square) {
-      square.classList.add("highlight");
-    }
-  });
-}
-
-function clearHighlight() {
-  Array.from(boardSquares).forEach((square) => {
-    square.classList.remove("highlight");
-  });
-}
-
-chessBoard.addEventListener("drop", () => {
-  clearHighlight();
-});
