@@ -1,0 +1,185 @@
+@font-face {
+  font-family: "pixfont";
+  src: url("../static/fonts/unifon.woff");
+}
+
+.page {
+  max-width: 900px;
+  font-family: "pixfont";
+  background-color: #5fa09f;
+  margin: 20px auto;
+  padding: 0 10px;
+  text-transform: lowercase;
+}
+
+.header {
+  min-height: 50px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.header__title {
+  font-size: 40px;
+  font-weight: 300;
+  margin: 0;
+  text-align: center;
+  color: #000;
+}
+
+.content {
+  background-color: #ffebcd;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chess-board {
+  width: 70vw;
+  height: 70vw;
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px #000000 solid;
+  background-color: #000000;
+}
+
+.chess-board__square {
+  width: 12.5%;
+  height: 12.5%;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.chess-board__square_white {
+  background-color: #769656;
+}
+
+.chess-board__square_black {
+  background-color: #eeeed2;
+}
+
+.chess-coordinate {
+  height: auto;
+  display: flex;
+  position: absolute;
+  bottom: -24%;
+  left: 4%;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.chess-rank {
+  top: 4%;
+  right: -20%;
+  left: auto;
+}
+
+.chess-piece {
+  width: 100%;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.chess-piece img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+.chess-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.chess-button {
+  appearance: none;
+  width: 200px;
+  height: 30px;
+  border: 0;
+  border-radius: 5px;
+  background: rgb(95, 160, 159);
+  color: #fff;
+  padding: 8px 16px;
+  transition: .1s linear;
+}
+
+.chess-button:hover {
+  background-color: rgb(73, 122, 121);
+}
+
+#winning-message {
+  text-align: center;
+  margin: 0;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.timer {
+  text-align: center;
+  font-size: 12px;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.footer {
+  min-height: 30px;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.footer p {
+  margin: 0 5px;
+  flex: 1;
+  font-size: 16px;
+}
+
+a {
+  text-align: center;
+  text-decoration: none;
+}
+
+a:link {
+  color: #000;
+}
+a:visited {
+  color: #000;
+}
+a:hover {
+  color: #baca44;
+}
+a:active {
+  color: #baca44;
+}
+
+@media (min-width: 860px) {
+  .chess-board {
+    width: 600px;
+    height: 600px;
+    margin-bottom: 25px;
+  }
+  .chess-buttons {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .content {
+    justify-content: center;
+  }
+  .chess-coordinate {
+    font-size: 8px;
+  }
+  .winning-message {
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Игра Шахматы, созданная с помощью JavaScript">
+  <meta name="keywords" content="html, css, javascript, chess">
+  <meta name="author" content="meumeu21">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Шахматы на JavaScript</title>
+</head>
+<body class="page">
+  <header class="header">
+    <h1 class="header__title">Шахматы на JavaScript</h1>
+  </header>
+  <main class="content">
+    <div class="chess-board">
+      <!-- 8th rank -->
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_rook" color="black">
+          <img src="static/chess-pieces/rook-b.svg" alt="brook">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_knight" color="black">
+          <img src="static/chess-pieces/knight-b.svg" alt="bknight">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_bishop" color="black">
+          <img src="static/chess-pieces/bishop-b.svg" alt="bbishop">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_queen" color="black">
+          <img src="static/chess-pieces/queen-b.svg" alt="bqueen">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_king" color="black">
+          <img src="static/chess-pieces/king-b.svg" alt="bking">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_bishop" color="black">
+          <img src="static/chess-pieces/bishop-b.svg" alt="bbishop">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_knight" color="black">
+          <img src="static/chess-pieces/knight-b.svg" alt="bknight">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-coordinate chess-rank">8</div>
+        <div class="chess-piece chess-piece_rook" color="black">
+          <img src="static/chess-pieces/rook-b.svg" alt="brook">
+        </div>
+      </div>
+      <!-- 7th rank -->
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-coordinate chess-rank">7</div>
+        <div class="chess-piece chess-piece_pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <!-- 6th rank -->
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-coordinate chess-rank">6</div>
+      </div>
+      <!-- 5th rank -->
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-coordinate chess-rank">5</div>
+      </div>
+      <!-- 4th rank -->
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-coordinate chess-rank">4</div>
+      </div>
+      <!-- 3rd rank -->
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white"></div>
+      <div class="chess-board__square chess-board__square_black"></div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-coordinate chess-rank">3</div>
+      </div>
+      <!-- 2nd rank -->
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-piece chess-piece_pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-piece chess-piece_pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-coordinate chess-rank">2</div>
+        <div class="chess-piece chess-piece_pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <!-- 1st rank -->
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-coordinate">a</div>
+        <div class="chess-piece chess-piece_rook" color="white">
+          <img src="static/chess-pieces/rook-w.svg" alt="wrook">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-coordinate">b</div>
+        <div class="chess-piece chess-piece_knight" color="white">
+          <img src="static/chess-pieces/knight-w.svg" alt="wknight">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-coordinate">c</div>
+        <div class="chess-piece chess-piece_bishop" color="white">
+          <img src="static/chess-pieces/bishop-w.svg" alt="wbishop">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-coordinate">d</div>
+        <div class="chess-piece chess-piece_queen" color="white">
+          <img src="static/chess-pieces/queen-w.svg" alt="wqueen">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-coordinate">e</div>
+        <div class="chess-piece chess-piece_king" color="white">
+          <img src="static/chess-pieces/king-w.svg" alt="wking">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-coordinate">f</div>
+        <div class="chess-piece chess-piece_bishop" color="white">
+          <img src="static/chess-pieces/bishop-w.svg" alt="wbishop">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_black">
+        <div class="chess-coordinate">g</div>
+        <div class="chess-piece chess-piece_knight" color="white">
+          <img src="static/chess-pieces/knight-w.svg" alt="wknight">
+        </div>
+      </div>
+      <div class="chess-board__square chess-board__square_white">
+        <div class="chess-coordinate">h</div>
+        <div class="chess-coordinate chess-rank">1</div>
+        <div class="chess-piece chess-piece_rook" color="white">
+          <img src="static/chess-pieces/rook-w.svg" alt="wrook">
+        </div>
+      </div>
+    </div>
+    <div class="chess-buttons">
+      <p id="winning-message">белые выиграли!</p>
+      <button class="chess-button" id="start">начать с начала</button>
+      <button class="chess-button">поставить позицию</button>
+      <div class="timer">время игры: <span id="timer">00:00</span></div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>автор: <a href="https://github.com/meumeu21">meumeu21</a></p>
+    <p>фигуры шахмат: <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces">wikimedia</a></p>
+  </footer>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/reset-board.js"></script>
+</body>
+</html>
