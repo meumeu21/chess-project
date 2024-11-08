@@ -38,11 +38,7 @@ const initialPositions = [
 const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 const ranks = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
-function resetBoard() {
-  boardSquaresArray = [];
-  isWhiteTurn = true;
-  whiteKingSquare = "e1";
-  blackKingSquare = "e8";
+function boardGenerate(massPositions) {
 
   for (let i = 0; i < boardSquares.length; i++) {
     boardSquares[i].innerHTML = '';
@@ -62,7 +58,7 @@ function resetBoard() {
     }
   }
 
-  initialPositions.forEach(pos => {
+  massPositions.forEach(pos => {
     const square = document.getElementById(pos.id);
 
     const piece = document.createElement("div");
@@ -75,23 +71,42 @@ function resetBoard() {
     piece.appendChild(img);
 
     square.appendChild(piece);
-
-    boardSquaresArray.push({
-      squareId: pos.id,
-      pieceColor: pos.color,
-      pieceType: pos.pieceType,
-      pieceId: piece.id
-    });
   });
+}
 
-  const alert= document.getElementById("winning-message");
+function resetBoard() {
+  boardSquaresArray = [];
+  isWhiteTurn = true;
+  whiteKingSquare = "e1";
+  blackKingSquare = "e8";
+
+  boardGenerate(initialPositions);
+
+  const alert = document.getElementById("winning-message");
+  const turn = document.getElementsByClassName("turn")[0];
+  const turnText = document.getElementById("turn");
   alert.style.display="none";
+  turnText.innerText = isWhiteTurn ? "белых" : "чёрных";
+  turn.style.display = "block";
 
+  const timerElement = document.getElementById("timer");
+  timerElement.innerText = "00:00";
+
+  const pgnContainer = document.getElementById("pgnContainer");
+  pgnContainer.innerHTML = '';
+
+  endGame();
   setupBoardSquares();
   setupPieces();
   fillBoardSquaresArray();
-  const timerElement = document.getElementById("timer");
-  timerElement.innerText = "00:00";
-  endGame();
+  positionArray=[];
   moves = [];
+  isWhiteTurn = true;
+  enPassantSquare = "blank";
+  allowMovement = true;
+  currentPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  pgn = "";
+  viewedFEN = currentPosition;
+  viewedIndex = 0;
+  positionArray.push(currentPosition);
 }

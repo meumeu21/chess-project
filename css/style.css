@@ -98,16 +98,25 @@
   margin-bottom: 20px;
 }
 
+.turn {
+  text-align: center;
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
 .chess-button {
   appearance: none;
   width: 200px;
-  height: 30px;
+  height: 35px;
   border: 0;
   border-radius: 5px;
   background: rgb(95, 160, 159);
   color: #fff;
   padding: 8px 16px;
   transition: .1s linear;
+  font-family: "pixfont";
+  font-size: 16px;
 }
 
 .chess-button:hover {
@@ -123,7 +132,7 @@
 
 .timer {
   text-align: center;
-  font-size: 12px;
+  font-size: 16px;
   margin: 0;
   margin-top: 10px;
 }
@@ -140,7 +149,7 @@
 .footer p {
   margin: 0 5px;
   flex: 1;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 a {
@@ -192,4 +201,107 @@ a:active {
   border: 1px solid rgba(255, 215, 0, 0.3);
   pointer-events: none;
   z-index: 1;
+}
+
+
+
+
+
+.promotionOption{
+  border-radius: 50%;
+  background-color: darkgray;
+  transition: transform 0.2s;
+  position: absolute;
+  z-index: 1000;
+}
+.promotionOption:hover {
+  cursor: pointer;
+  border-radius: 0%;
+  background-color:#539B0C;
+  width: 100%;
+}
+.promotionOption img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+#gameInfo {
+  display: flex;
+  background-color: white;
+  border-radius: 4px;
+  flex-direction: column;
+  width: 200px;
+  min-height: 97px;
+  max-height: 161px;
+  border: 2px #000000 solid;
+}
+
+#gameInfo p {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  border-radius: 2px 2px 0 0;
+  background-color: #c0c0c0;
+  border-bottom: 2px #000000 solid;
+  font-size: 16px;
+}
+
+#pgnContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-y: auto;
+  font-size: 14px;
+  max-height: 100px;
+  flex-grow: 1;
+}
+.moveNumber {
+  display: flex;
+  flex: 0 0 16.666%;
+  background-color: #dddddd;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+}
+.playerMove {
+  display: flex;
+  flex: 0 0 35%;
+  padding-left: 10px;
+  align-items: center;
+  height: 20px;
+  cursor: pointer;
+}
+.gameInfo-footer {
+  min-height: 16px;
+  background-color: #c0c0c0;
+  border-radius: 0 0 2px 2px;
+  border-top: 2px #000000 solid;
+}
+
+.highlighted{
+  background-color: rgb(208,228,245);
+}
+#moveNavigation{
+  display: flex;
+  display: none;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color:#f7f6f5 ;
+  height: 10vh;
+}
+
+.navigation{
+  display: flex;
+  width: 25%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.navigation:hover{
+  background-color: rgb(98,153,36);
+  color:whitesmoke;
 }

@@ -163,6 +163,7 @@ function generateFEN(boardSquares){
   let moveCount=Math.floor(moves.length/2)+1;
   fen+=" "+moveCount;
   console.log(fen);
+  console.log(moves);
   return fen;
 }
 
@@ -247,7 +248,7 @@ function performEnPassant(
   );
   let captured = true;
   makeMove(startingSquareId, destinationSquareId, "pawn", pieceColor, captured);
-  enPassantSquare="blank";
+  enPassantSquare=destinationSquareId;
   checkForEndGame();
   return;
 }
@@ -576,6 +577,7 @@ function drop(ev) {
       pieceColor,
       captured
     );
+    displayTurn();
     checkForEndGame();
     return;
   }
@@ -620,6 +622,7 @@ function drop(ev) {
       pieceColor,
       captured
     );
+    displayTurn();
     checkForEndGame();
     return;
   }
@@ -1434,16 +1437,6 @@ function getAllPossibleMoves(squaresArray, color) {
       return legalSquares;
     });
 }
-function showAlert(message) {
-  const alert = document.getElementById("alert");
-  alert.innerHTML = message;
-  alert.style.display = "block";
-
-  setTimeout(function () {
-    alert.style.display = "none";
-  }, 3000);
-}
-
 
 
 
@@ -1471,33 +1464,29 @@ function checkForCheckMateAndStaleMate() {
 
 function showAlert(message) {
   const alert= document.getElementById("winning-message");
+  const turn = document.getElementsByClassName("turn")[0];
   alert.innerHTML=message;
   alert.style.display="block";
+  turn.style.display = "none";
 }
+
 
 function updateTimer() {
   seconds++;
   const timerElement = document.getElementById("timer");
   timerElement.innerText = formatTime(seconds);
 }
-
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
   return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 }
-
-function startTimer() {
-  timerInterval = setInterval(updateTimer, 1000);
-}
-
 function checkAndStartGame() {
   if (!isGameStarted) {
     isGameStarted = true;
-    startTimer();
+    timerInterval = setInterval(updateTimer, 1000);
   }
 }
-
 function endGame() {
   clearInterval(timerInterval);
   seconds = 0;
@@ -1514,13 +1503,16 @@ function highlightPossibleMoves(legalSquares) {
     }
   });
 }
-
 function clearHighlight() {
   Array.from(boardSquares).forEach((square) => {
     square.classList.remove("highlight");
   });
 }
-
 chessBoard.addEventListener("drop", () => {
   clearHighlight();
 });
+
+function displayTurn() {
+  let turnText = document.getElementById("turn");
+  turnText.innerText = isWhiteTurn ? "белых" : "чёрных";
+}

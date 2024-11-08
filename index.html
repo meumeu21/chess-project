@@ -238,8 +238,27 @@
     </div>
     <div class="chess-buttons">
       <p id="winning-message">белые выиграли!</p>
+      <div class="turn">ход <span id="turn">белых</span></div>
       <button class="chess-button" id="start">начать с начала</button>
-      <button class="chess-button">поставить позицию</button>
+      <div id="gameInfo">
+        <p>ходы</p>
+        <div id="moveNavigation">
+          <div id="fastBackward" class="navigation">
+            <i class="fa fa-fast-backward"></i>
+          </div>
+          <div id="stepBackward" class="navigation">
+            <i class="fa fa-step-backward"></i>
+          </div>
+          <div id="stepForward" class="navigation">
+            <i class="fa fa-step-forward"></i>
+          </div>
+          <div id="fastForward" class="navigation">
+            <i class="fa fa-fast-forward"></i>
+          </div>
+        </div>
+        <div id="pgnContainer"></div>
+        <div class="gameInfo-footer"></div>
+      </div>
       <div class="timer">время игры: <span id="timer">00:00</span></div>
     </div>
   </main>
@@ -247,7 +266,8 @@
     <p>автор: <a href="https://github.com/meumeu21">meumeu21</a></p>
     <p>фигуры шахмат: <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces">wikimedia</a></p>
   </footer>
-  <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/reset-board.js"></script>
+  <script type="text/javascript" src="js/main-ver2.js"></script>
+  <script type="text/javascript" src="js/save-load.js"></script>
 </body>
 </html>
