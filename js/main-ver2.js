@@ -1924,6 +1924,20 @@ function endGame() {
   clearInterval(timerInterval);
   isGameStarted = false;
 }
+function loadTime() {
+  const timerElement = document.getElementById("timer");
+  if (document.getElementById("winning-message").style.display != "block") {
+    if (isGameStarted) {
+      timerElement.innerText = formatTime(seconds);
+      timerInterval = setInterval(updateTimer, 1000);
+    } else {
+      seconds = 0;
+      timerElement.innerText = "00:00";
+    }
+  } else {
+    timerElement.innerText = formatTime(seconds);
+  }
+}
 
 function highlightPossibleMoves(legalSquares) {
   clearHighlight();

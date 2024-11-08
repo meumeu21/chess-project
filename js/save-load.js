@@ -36,11 +36,9 @@ function loadGameState() {
 
     renderChessBoard(boardSquaresArray);
     recreateHTMLFromPGN(pgn);
-    const timerElement = document.getElementById("timer");
-    timerElement.innerText = formatTime(seconds);
-    timerInterval = setInterval(updateTimer, 1000);
     displayTurn();
     checkForCheckMateAndStaleMate();
+    loadTime();
   }
 }
 

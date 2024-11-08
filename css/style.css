@@ -3,10 +3,29 @@
   src: url("../static/fonts/unifon.woff");
 }
 
+:root {
+  --body-color: #5fa09f;
+  --header-footer-font-color: #000;
+  --content-background-color: #ffebcd;
+  --content-font-color: #000;
+  --chess-board-border-color: #000;
+  --white-square-color: #eeeed2;
+  --black-square-color: #769656;
+  --button-font-color: #fff;
+  --button-hover-color: #497a79;
+  --link-color: #baca44;
+  --highlight-square-center-color: rgba(255, 215, 0, 0.4);
+  --highlight-square-edge-color: rgba(255, 215, 0, 0.1);
+  --highlight-square-border-color: rgba(255, 215, 0, 0.3);
+  --promotion-option-still-color: #a9a9a9;
+  --promotion-option-hover-color: #539B0C;
+  --gameinfo-background-color: #fff;
+}
+
 .page {
   max-width: 900px;
   font-family: "pixfont";
-  background-color: #5fa09f;
+  background-color: var(--body-color);
   margin: 20px auto;
   padding: 0 10px;
   text-transform: lowercase;
@@ -23,14 +42,15 @@
   font-weight: 300;
   margin: 0;
   text-align: center;
-  color: #000;
+  color: var(--header-footer-font-color);
 }
 
 .content {
-  background-color: #ffebcd;
+  background-color: var(--content-background-color);
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
+  color: var(--content-font-color);
 }
 
 .chess-board {
@@ -39,8 +59,8 @@
   margin: 20px;
   display: flex;
   flex-wrap: wrap;
-  border: 2px #000000 solid;
-  background-color: #000000;
+  border: 2px var(--chess-board-border-color) solid;
+  background-color: var(--chess-board-border-color);
 }
 
 .square {
@@ -54,11 +74,11 @@
 }
 
 .square_white {
-  background-color: #eeeed2;
+  background-color: var(--white-square-color);
 }
 
 .square_black {
-  background-color: #769656;
+  background-color: var(--black-square-color);
 }
 
 .coordinate {
@@ -111,8 +131,8 @@
   height: 35px;
   border: 0;
   border-radius: 5px;
-  background: rgb(95, 160, 159);
-  color: #fff;
+  background: var(--body-color);
+  color: var(--button-font-color);
   padding: 8px 16px;
   transition: .1s linear;
   font-family: "pixfont";
@@ -120,7 +140,7 @@
 }
 
 .chess-button:hover {
-  background-color: rgb(73, 122, 121);
+  background-color: var(--button-hover-color);
 }
 
 #winning-message {
@@ -158,16 +178,16 @@ a {
 }
 
 a:link {
-  color: #000;
+  color: var(--content-font-color);
 }
 a:visited {
-  color: #000;
+  color: var(--content-font-color);
 }
 a:hover {
-  color: #baca44;
+  color: var(--link-color);
 }
 a:active {
-  color: #baca44;
+  color: var(--link-color);
 }
 
 @media (min-width: 860px) {
@@ -197,8 +217,8 @@ a:active {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 20%, rgba(255, 215, 0, 0.1) 80%);
-  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: radial-gradient(circle, var(--highlight-square-center-color) 20%, var(--highlight-square-edge-color) 80%);
+  border: 1px solid var(--highlight-square-border-color);
   pointer-events: none;
   z-index: 1;
 }
@@ -209,7 +229,7 @@ a:active {
 
 .promotionOption{
   border-radius: 50%;
-  background-color: darkgray;
+  background-color: var(--promotion-option-still-color);
   transition: transform 0.2s;
   position: absolute;
   z-index: 1000;
@@ -217,7 +237,7 @@ a:active {
 .promotionOption:hover {
   cursor: pointer;
   border-radius: 0%;
-  background-color:#539B0C;
+  background-color: var(--promotion-option-hover-color);
   width: 100%;
 }
 .promotionOption img {
@@ -228,13 +248,13 @@ a:active {
 
 #gameInfo {
   display: flex;
-  background-color: white;
+  background-color: var(--gameinfo-background-color);
   border-radius: 4px;
   flex-direction: column;
   width: 200px;
   min-height: 97px;
   max-height: 161px;
-  border: 2px #000000 solid;
+  border: 2px #000 solid;
 }
 
 #gameInfo p {
@@ -243,7 +263,7 @@ a:active {
   text-align: center;
   border-radius: 2px 2px 0 0;
   background-color: #c0c0c0;
-  border-bottom: 2px #000000 solid;
+  border-bottom: 2px #000 solid;
   font-size: 16px;
 }
 
@@ -259,7 +279,7 @@ a:active {
 .moveNumber {
   display: flex;
   flex: 0 0 16.666%;
-  background-color: #dddddd;
+  background-color: #ddd;
   justify-content: center;
   align-items: center;
   height: 20px;
@@ -276,7 +296,7 @@ a:active {
   min-height: 16px;
   background-color: #c0c0c0;
   border-radius: 0 0 2px 2px;
-  border-top: 2px #000000 solid;
+  border-top: 2px #000 solid;
 }
 
 .highlighted{
