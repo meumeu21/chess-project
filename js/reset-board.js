@@ -95,6 +95,7 @@ function resetBoard() {
   const pgnContainer = document.getElementById("pgnContainer");
   pgnContainer.innerHTML = '';
 
+  clearHighlight();
   endGame();
   setupBoardSquares();
   setupPieces();

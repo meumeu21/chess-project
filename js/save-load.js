@@ -2,6 +2,7 @@ window.addEventListener("beforeunload", saveGameState);
 document.addEventListener("DOMContentLoaded", loadGameState);
 
 function saveGameState() {
+  saveHighlightedCells();
   const gameState = {
     isGameStarted: isGameStarted,
     timerInterval: timerInterval,
@@ -14,6 +15,9 @@ function saveGameState() {
     allowMovement: allowMovement,
     currentPosition: currentPosition,
     pgn: pgn,
+    alertDisplay: document.getElementById("winning-message").style.display,
+    alertMessage: document.getElementById("winning-message").innerText,
+    turnDisplay: document.getElementsByClassName("turn")[0].style.display,
   };
   localStorage.setItem('chessGameState', JSON.stringify(gameState));
 }
@@ -35,11 +39,31 @@ function loadGameState() {
     pgn = gameState.pgn;
 
     renderChessBoard(boardSquaresArray);
+    restoreHighlightedCells();
     recreateHTMLFromPGN(pgn);
     displayTurn();
     checkForCheckMateAndStaleMate();
+    document.getElementById("winning-message").style.display = gameState.alertDisplay || "none";
+    document.getElementById("winning-message").innerText = gameState.alertMessage;
+    document.getElementsByClassName("turn")[0].style.display = gameState.turnDisplay || "none";
     loadTime();
   }
+}
+
+function saveHighlightedCells() {
+  const highlightedCells = Array.from(document.querySelectorAll(".highlight-last-move"))
+    .map(cell => cell.id);
+  localStorage.setItem("highlightedCells", JSON.stringify(highlightedCells));
+}
+
+function restoreHighlightedCells() {
+  const highlightedCells = JSON.parse(localStorage.getItem("highlightedCells")) || [];
+  highlightedCells.forEach(cellId => {
+    const cell = document.getElementById(cellId);
+    if (cell) {
+      cell.classList.add("highlight-last-move");
+    }
+  });
 }
 
 function renderChessBoard(boardSquaresArray) {
@@ -75,6 +99,13 @@ function renderChessBoard(boardSquaresArray) {
       square.appendChild(piece);
     }
   });
+
+  // if (highlightedArray.length != 0) {
+  //   highlightedArray.forEach(pos => {
+  //     const square = document.getElementById(pos.squareId);
+  //     square.classList.add("highlight-last-move");
+  //   })
+  // }
 
   setupBoardSquares();
   setupPieces();

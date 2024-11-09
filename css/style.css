@@ -17,6 +17,9 @@
   --highlight-square-center-color: rgba(255, 215, 0, 0.4);
   --highlight-square-edge-color: rgba(255, 215, 0, 0.1);
   --highlight-square-border-color: rgba(255, 215, 0, 0.3);
+  --highlight-last-move-square-center-color: rgba(64, 255, 0, 0.4);
+  --highlight-last-move-square-edge-color: rgba(64, 255, 0, 0.1);
+  --highlight-last-move-square-border-color: rgba(64, 255, 0, 0.3);
   --promotion-option-still-color: #a9a9a9;
   --promotion-option-hover-color: #539B0C;
   --gameinfo-background-color: #fff;
@@ -219,6 +222,15 @@ a:active {
   inset: 0;
   background: radial-gradient(circle, var(--highlight-square-center-color) 20%, var(--highlight-square-edge-color) 80%);
   border: 1px solid var(--highlight-square-border-color);
+  pointer-events: none;
+  z-index: 1;
+}
+.highlight-last-move::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, var(--highlight-last-move-square-center-color) 20%, var(--highlight-last-move-square-edge-color) 80%);
+  border: 1px solid var(--highlight-last-move-square-border-color);
   pointer-events: none;
   z-index: 1;
 }
