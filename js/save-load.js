@@ -16,6 +16,8 @@ function saveGameState() {
     allowMovement: allowMovement,
     currentPosition: currentPosition,
     pgn: pgn,
+    viewedFEN: viewedFEN,
+    viewedIndex: viewedIndex,
     alertDisplay: document.getElementById("winning-message").style.display,
     alertMessage: document.getElementById("winning-message").innerText,
     turnDisplay: document.getElementsByClassName("turn")[0].style.display,
@@ -38,11 +40,13 @@ function loadGameState() {
     allowMovement = gameState.allowMovement;
     currentPosition = gameState.currentPosition;
     pgn = gameState.pgn;
+    viewedFEN = gameState.viewedFEN;
+    viewedIndex = gameState.viewedIndex;
 
     renderChessBoard(boardSquaresArray);
     restoreHighlightedCells();
     recreateHTMLFromPGN(pgn);
-    if (positionArray.length != 0) highlightMove(positionArray.length - 1);
+    if (positionArray.length != 0) highlightMove(viewedIndex);
     displayTurn();
     checkForCheckMateAndStaleMate();
     document.getElementById("winning-message").style.display = gameState.alertDisplay || "none";

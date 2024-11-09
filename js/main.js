@@ -1902,7 +1902,7 @@ function moveForward() {
 }
 function moveToStart() {
   if(viewedIndex >=0) {
-    viewedIndex =0;
+    viewedIndex =1;
     highlightMove(1);
     updatePosition();
   }
@@ -1978,10 +1978,23 @@ function loadPositionFromFEN(fen) {
 }
 
 function clearBoard() {
-  const squares = document.querySelectorAll('.square');
-  squares.forEach(square => {
-    square.innerHTML = ''; // Clear all pieces from the squares
-  });
+  for (let i = 0; i < boardSquares.length; i++) {
+    boardSquares[i].innerHTML = '';
+
+    if (i >= 56) {
+      const fileLabel = document.createElement("div");
+      fileLabel.classList.add("coordinate");
+      fileLabel.innerText = files[i % 8];
+      boardSquares[i].appendChild(fileLabel);
+    }
+
+    if ((i + 1) % 8 == 0) {
+      const rankLabel = document.createElement("div");
+      rankLabel.classList.add("coordinate", "rank");
+      rankLabel.innerText = ranks[7 - Math.floor(i / 8)];
+      boardSquares[i].appendChild(rankLabel);
+    }
+  }
 }
 
 
@@ -2004,7 +2017,6 @@ function checkForCheckMateAndStaleMate() {
   if (kingIsCheck)
     isWhiteTurn ? (message = "черные выиграли!") : (message = "белые выиграли!");
   else message = "ничья";
-  console.log("конец игры");
   showAlert(message);
   endGame();
 }
@@ -2075,7 +2087,6 @@ chessBoard.addEventListener("drop", () => {
 function highlightLastMove(viewedIndex) {
   if (moves.length === 0) return;
   let lastMove = moves[viewedIndex - 1];
-  console.log(viewedIndex, moves[viewedIndex - 1])
   let fromSquare = document.getElementById(lastMove.from);
   let toSquare = document.getElementById(lastMove.to);
   fromSquare.classList.add("highlight-last-move");
