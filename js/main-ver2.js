@@ -24,9 +24,9 @@ setupBoardSquares();
 setupPieces();
 fillBoardSquaresArray();
 let startingPosition = generateFEN(boardSquaresArray);
-getEvaluation(startingPosition,function(lines,evaluations,scoreString){
-  displayEvaluation(lines,evaluations,scoreString,true,1);
-})
+// getEvaluation(startingPosition,function(lines,evaluations,scoreString){
+//   displayEvaluation(lines,evaluations,scoreString,true,1);
+// })
 
 function fillBoardSquaresArray() {
   const boardSquares = document.getElementsByClassName("square");
@@ -649,10 +649,6 @@ function drop(ev) {
         destinationSquare.removeChild(children[i]);
       }
     }
-    // while (destinationSquare.firstChild) {
-    //   if(!destinationSquare.firstChild.classList.contains("coordinate"))
-    //    destinationSquare.removeChild(destinationSquare.firstChild);
-    // }
     destinationSquare.appendChild(piece);
     isWhiteTurn = !isWhiteTurn;
     updatePGN(startingSquareId, destinationSquareId, isWhiteTurn);
@@ -1367,14 +1363,14 @@ function checkForEndGame() {
   checkForCheckMateAndStaleMate();
   let currentPosition = generateFEN(boardSquaresArray);
   let moveCount = Math.floor(moves.length/2)+1;
-  getEvaluation(currentPosition,function(lines,evaluations,scoreString){
-    displayEvaluation(lines,evaluations,scoreString,isWhiteTurn,moveCount);
-  });
+  // getEvaluation(currentPosition,function(lines,evaluations,scoreString){
+  //   displayEvaluation(lines,evaluations,scoreString,isWhiteTurn,moveCount);
+  // });
   positionArray.push(currentPosition);
   let threeFoldRepetition = isThreefoldRepetition();
   let insufficientMaterial = hasInsufficientMaterial(currentPosition);
   let fiftyMovesRuleCount = currentPosition.split(" ")[4];
-  let fiftyMovesRule = fiftyMovesRuleCount != 100 ? false : true;
+  let fiftyMovesRule = fiftyMovesRuleCount != 50 ? false : true;
   let isDraw = threeFoldRepetition || insufficientMaterial || fiftyMovesRule;
   if (isDraw) {
     allowMovement = false;
@@ -1530,7 +1526,7 @@ function getAllPossibleMoves(squaresArray, color) {
 }
 
 function getEvaluation(fen, callback) {
-  let engine = new Worker("./node_modules/stockfish/src/stockfish-nnue-16.js");
+  let engine = new Worker('../node_modules/stockfish/src/stockfish-nnue-16.js');
   let evaluations = [];
   let lines = [];
   let possibleMoves =3;
@@ -1957,6 +1953,14 @@ function clearHighlight() {
 chessBoard.addEventListener("drop", () => {
   clearHighlight();
 });
+function highlightLastMove() {
+  if (moves.length === 0) return;
+  let lastMove = moves[moves.length - 1];
+  let fromSquare = document.getElementById(lastMove.from);
+  let toSquare = document.getElementById(lastMove.to);
+  fromSquare.classList.add("highlight");
+  toSquare.classList.add("highlight");
+}
 
 function displayTurn() {
   let turnText = document.getElementById("turn");
