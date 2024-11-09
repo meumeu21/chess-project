@@ -316,12 +316,11 @@ a:active {
 }
 #moveNavigation{
   display: flex;
-  display: none;
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
   background-color:#f7f6f5 ;
-  height: 10vh;
+  height: 5vh;
 }
 
 .navigation{

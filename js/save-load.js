@@ -1,6 +1,7 @@
 window.addEventListener("beforeunload", saveGameState);
 document.addEventListener("DOMContentLoaded", loadGameState);
 
+
 function saveGameState() {
   saveHighlightedCells();
   const gameState = {
@@ -41,6 +42,7 @@ function loadGameState() {
     renderChessBoard(boardSquaresArray);
     restoreHighlightedCells();
     recreateHTMLFromPGN(pgn);
+    if (positionArray.length != 0) highlightMove(positionArray.length - 1);
     displayTurn();
     checkForCheckMateAndStaleMate();
     document.getElementById("winning-message").style.display = gameState.alertDisplay || "none";
