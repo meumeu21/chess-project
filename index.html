@@ -246,6 +246,7 @@
       </div>
     </div>
     <div class="chess-buttons">
+      <h2>игровое меню</h2>
       <p id="winning-message">белые выиграли!</p>
       <div class="turn">ход <span id="turn">белых</span></div>
       <button class="chess-button" id="start">начать с начала</button>
@@ -269,6 +270,16 @@
         <div class="gameInfo-footer"></div>
       </div>
       <div class="timer">время игры: <span id="timer">00:00</span></div>
+      <button class="chess-button" id="open-theme-popup">переключить тему</button>
+    </div>
+    <div id="theme-popup" class="popup">
+      <div class="popup-content">
+        <h2>выберите тему</h2>
+        <button class="theme-option" data-theme="default">основная тема</button>
+        <button class="theme-option" data-theme="coral">яркая тема</button>
+        <button class="theme-option" data-theme="gray">серая тема</button>
+        <button id="close-popup" class="close-btn">закрыть</button>
+      </div>
     </div>
   </main>
   <footer class="footer">
@@ -277,6 +288,7 @@
   </footer>
   <script type="text/javascript" src="js/reset-board.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/change-theme.js"></script>
   <script type="text/javascript" src="js/save-load.js"></script>
 </body>
 </html>

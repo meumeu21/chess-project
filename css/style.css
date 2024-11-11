@@ -23,7 +23,76 @@
   --promotion-option-still-color: #a9a9a9;
   --promotion-option-hover-color: #539B0C;
   --gameinfo-background-color: #fff;
+  --gameinfo-footer-header-color: #c0c0c0;
+  --gameinfo-border-color: #000;
+  --gameinfo-move-number-color: #ddd;
+  --gameinfo-highlighted-move-color: #d0e4f5;
+  --gameinfo-buttons-color: #f7f6f5;
+  --gameinfo-button-text-color: #000;
+  --gameinfo-button-hover-color: #629924;
+  --gameinfo-button-text-hover-color: #f5f5f5;
 }
+
+.coral-theme {
+  --body-color: #ff6f61; /* насыщенный кораллово-красный для фона */
+  --header-footer-font-color: #ffffff; /* белый текст для контраста */
+  --content-background-color: #ffe9c5; /* светло-оранжевый для фона контента */
+  --content-font-color: #2d2d2d; /* темный для удобочитаемого текста */
+  --chess-board-border-color: #ff4e50; /* яркий красный для бордюра доски */
+  --white-square-color: #fffbf0; /* теплый кремовый цвет для светлых клеток */
+  --black-square-color: #e63946; /* насыщенный красно-розовый для темных клеток */
+  --button-font-color: #ffffff; /* белый текст для кнопок */
+  --button-hover-color: #ff8b61; /* яркий оттенок для эффекта наведения */
+  --link-color: #ffb703; /* ярко-желтый для ссылок */
+  --highlight-square-center-color: rgba(255, 223, 47, 0.4); /* яркий золотой для выделения */
+  --highlight-square-edge-color: rgba(255, 223, 47, 0.1);
+  --highlight-square-border-color: rgba(255, 223, 47, 0.3);
+  --highlight-last-move-square-center-color: rgba(72, 232, 172, 0.4); /* мятно-зеленый для последнего хода */
+  --highlight-last-move-square-edge-color: rgba(72, 232, 172, 0.1);
+  --highlight-last-move-square-border-color: rgba(72, 232, 172, 0.3);
+  --promotion-option-still-color: #f29e4c; /* яркий оранжевый для опций */
+  --promotion-option-hover-color: #d62828; /* насыщенный красный для наведения */
+  --gameinfo-background-color: #ffffff; /* белый для информационного блока */
+  --gameinfo-footer-header-color: #ffc6ff; /* мягкий розовый для заголовков и подвалов */
+  --gameinfo-border-color: #e63946; /* красный, сочетающийся с доской */
+  --gameinfo-move-number-color: #ffdd57; /* золотистый для нумерации ходов */
+  --gameinfo-highlighted-move-color: #ffd700; /* ярко-желтый для выделенного хода */
+  --gameinfo-buttons-color: #ffdad9; /* светло-розовый для фона кнопок */
+  --gameinfo-button-text-color: #2d2d2d; /* темный текст для контраста */
+  --gameinfo-button-hover-color: #ffab76; /* теплый оранжевый для эффекта наведения */
+  --gameinfo-button-text-hover-color: #ffffff; /* белый текст для яркости */
+}
+
+.gray-theme {
+  --body-color: #4a5966;
+  --header-footer-font-color: #ffffff;
+  --content-background-color: #dcd7c9;
+  --content-font-color: #333333;
+  --chess-board-border-color: #2b3e50;
+  --white-square-color: #f0f0e8;
+  --black-square-color: #3b4b3c;
+  --button-font-color: #ffffff;
+  --button-hover-color: #314f4f;
+  --link-color: #a8c256;
+  --highlight-square-center-color: rgba(173, 216, 230, 0.4); /* light blue */
+  --highlight-square-edge-color: rgba(173, 216, 230, 0.1);
+  --highlight-square-border-color: rgba(173, 216, 230, 0.3);
+  --highlight-last-move-square-center-color: rgba(102, 205, 170, 0.4); /* medium aquamarine */
+  --highlight-last-move-square-edge-color: rgba(102, 205, 170, 0.1);
+  --highlight-last-move-square-border-color: rgba(102, 205, 170, 0.3);
+  --promotion-option-still-color: #6e7f80;
+  --promotion-option-hover-color: #3e5f3b;
+  --gameinfo-background-color: #ffffff;
+  --gameinfo-footer-header-color: #b5b5b5;
+  --gameinfo-border-color: #2b3e50;
+  --gameinfo-move-number-color: #cccccc;
+  --gameinfo-highlighted-move-color: #a3c4dc;
+  --gameinfo-buttons-color: #e8e8e8;
+  --gameinfo-button-text-color: #333333;
+  --gameinfo-button-hover-color: #536d4f;
+  --gameinfo-button-text-hover-color: #ffffff;
+}
+
 
 .page {
   max-width: 900px;
@@ -121,6 +190,11 @@
   margin-bottom: 20px;
 }
 
+.chess-buttons h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
 .turn {
   text-align: center;
   font-size: 16px;
@@ -158,6 +232,7 @@
   font-size: 16px;
   margin: 0;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .footer {
@@ -264,9 +339,9 @@ a:active {
   border-radius: 4px;
   flex-direction: column;
   width: 200px;
-  min-height: 97px;
+  min-height: 94px;
   max-height: 161px;
-  border: 2px #000 solid;
+  border: 2px var(--gameinfo-border-color) solid;
 }
 
 #gameInfo p {
@@ -274,8 +349,8 @@ a:active {
   padding: 10px;
   text-align: center;
   border-radius: 2px 2px 0 0;
-  background-color: #c0c0c0;
-  border-bottom: 2px #000 solid;
+  background-color: var(--gameinfo-footer-header-color);
+  border-bottom: 2px var(--gameinfo-border-color) solid;
   font-size: 16px;
 }
 
@@ -291,7 +366,7 @@ a:active {
 .moveNumber {
   display: flex;
   flex: 0 0 16.666%;
-  background-color: #ddd;
+  background-color: var(--gameinfo-move-number-color);
   justify-content: center;
   align-items: center;
   height: 20px;
@@ -306,23 +381,22 @@ a:active {
 }
 .gameInfo-footer {
   min-height: 16px;
-  background-color: #c0c0c0;
+  background-color: var(--gameinfo-footer-header-color);
   border-radius: 0 0 2px 2px;
-  border-top: 2px #000 solid;
+  border-top: 2px var(--gameinfo-border-color) solid;
 }
 
 .highlighted{
-  background-color: rgb(208,228,245);
+  background-color: var(--gameinfo-highlighted-move-color);
 }
 #moveNavigation{
   display: flex;
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
-  background-color:#f7f6f5 ;
+  background-color: var(--gameinfo-buttons-color);
   height: 5vh;
 }
-
 .navigation{
   display: flex;
   width: 25%;
@@ -330,9 +404,74 @@ a:active {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: var(--gameinfo-button-text-color);
+}
+.navigation:hover{
+  background-color: var(--gameinfo-button-hover-color);
+  color: var(--gameinfo-button-text-hover-color);
 }
 
-.navigation:hover{
-  background-color: rgb(98,153,36);
-  color:whitesmoke;
+
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 300px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2 {
+  margin-top: 0;
+}
+
+.theme-option {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "pixfont";
+  border: 0;
+  border-radius: 5px;
+  background: var(--body-color);
+  color: var(--button-font-color);
+}
+
+.theme-option:hover {
+  background-color: var(--button-hover-color);
+}
+
+.close-btn {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #ff0000;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-family: "pixfont";
+}
+
+.popup.show {
+  visibility: visible;
+  opacity: 1;
 }

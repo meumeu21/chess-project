@@ -1,9 +1,9 @@
 window.addEventListener("beforeunload", saveGameState);
 document.addEventListener("DOMContentLoaded", loadGameState);
 
-
 function saveGameState() {
   saveHighlightedCells();
+  const selectedTheme = document.body.classList[1] ? document.body.classList[1] : "";
   const gameState = {
     isGameStarted: isGameStarted,
     timerInterval: timerInterval,
@@ -21,6 +21,7 @@ function saveGameState() {
     alertDisplay: document.getElementById("winning-message").style.display,
     alertMessage: document.getElementById("winning-message").innerText,
     turnDisplay: document.getElementsByClassName("turn")[0].style.display,
+    theme: selectedTheme
   };
   localStorage.setItem('chessGameState', JSON.stringify(gameState));
 }
@@ -53,6 +54,11 @@ function loadGameState() {
     document.getElementById("winning-message").innerText = gameState.alertMessage;
     document.getElementsByClassName("turn")[0].style.display = gameState.turnDisplay || "none";
     loadTime();
+
+    const savedTheme = gameState.theme;
+    console.log(savedTheme);
+    document.body.classList.remove('default-theme', 'gray-theme', 'coral-theme');
+    document.body.classList.add(savedTheme);
   }
 }
 

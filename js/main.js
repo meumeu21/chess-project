@@ -1925,7 +1925,9 @@ function highlightMove(viewedIndex) {
   document.querySelectorAll(".highlighted").forEach(element=>{
     element.classList.remove("highlighted");
   });
-  moveElement.classList.add("highlighted");
+  if (moveElement) {
+    moveElement.classList.add("highlighted");
+  }
 }
 function updatePosition() {
   viewedFEN = positionArray[viewedIndex];
