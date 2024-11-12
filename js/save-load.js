@@ -1,6 +1,5 @@
 window.addEventListener("beforeunload", saveGameState);
 document.addEventListener("DOMContentLoaded", loadGameState);
-localStorage.clear();
 
 function saveGameState() {
   saveHighlightedCells();
