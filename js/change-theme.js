@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   themeOptions.forEach(option => {
     option.addEventListener('click', function () {
       const selectedTheme = this.getAttribute('data-theme');
-      document.body.classList.remove('gray-theme', 'coral-theme', 'default-theme');
+      document.body.classList.remove('gray-theme', 'coral-theme');
       if (selectedTheme === 'coral') {
         document.body.classList.add('coral-theme');
       }
@@ -26,9 +26,3 @@ document.getElementById('open-theme-popup').addEventListener('click', function (
   const themePopup = document.getElementById('theme-popup');
   themePopup.classList.add('show');
 });
-
-document.addEventListener('DOMContentLoaded', function () {
-  const savedTheme = localStorage.getItem('selectedTheme') || 'default';
-  document.body.classList.add(savedTheme + '-theme');
-});
-
