@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", loadGameState);
 
 function saveGameState() {
   saveHighlightedCells();
-  const selectedTheme = document.body.classList[1] ? document.body.classList[1] : " ";
+  const theme = document.body.classList[1];
+  const selectedTheme = theme.includes("-theme") ? document.body.classList[1] : " ";
   const gameState = {
     isGameStarted: isGameStarted,
     timerInterval: timerInterval,
@@ -54,7 +55,7 @@ function loadGameState() {
     document.getElementById("winning-message").innerText = gameState.alertMessage;
     document.getElementsByClassName("turn")[0].style.display = gameState.turnDisplay || "none";
     loadTime();
-    if (gameState.theme != undefined) {
+    if (gameState.theme) {
       const savedTheme = gameState.theme;
       console.log(savedTheme);
       document.body.classList.remove('gray-theme', 'coral-theme');
@@ -112,13 +113,6 @@ function renderChessBoard(boardSquaresArray) {
       square.appendChild(piece);
     }
   });
-
-  // if (highlightedArray.length != 0) {
-  //   highlightedArray.forEach(pos => {
-  //     const square = document.getElementById(pos.squareId);
-  //     square.classList.add("highlight-last-move");
-  //   })
-  // }
 
   setupBoardSquares();
   setupPieces();
