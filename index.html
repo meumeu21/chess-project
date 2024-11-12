@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/fontawesome/css/all.css">
   <!-- иконки -->
-  <link rel="icon" type="image/x-icon" href="static/favicon/favicon.ico">
-  <link rel="icon" type="image/png" href="static/favicon/favicon-16x16.png">
-  <link rel="icon" type="image/png" href="static/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" href="static/favicon/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" href="static/favicon/android-chrome-512x512.png">
-  <link rel="icon" type="image/png" href="static/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/x-icon" href="https://meumeu21.github.io/chess-project/static/favicon/favicon.ico">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/favicon-16x16.png">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/android-chrome-512x512.png">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/apple-touch-icon.png">
   <!-- иконки конец -->
   <title>Шахматы на JavaScript</title>
 </head>
@@ -276,7 +276,9 @@
       <div class="popup-content">
         <h2>выберите тему</h2>
         <button class="theme-option" data-theme="default">основная тема</button>
-        <button class="theme-option" data-theme="coral">яркая тема</button>
+        <button class="theme-option" data-theme="rose">розовая тема</button>
+        <button class="theme-option" data-theme="sunrise">тема цвета заката</button>
+        <button class="theme-option" data-theme="coral">коралловая тема</button>
         <button class="theme-option" data-theme="gray">серая тема</button>
         <button id="close-popup" class="close-btn">закрыть</button>
       </div>
@@ -286,6 +288,28 @@
     <p>автор: <a href="https://github.com/meumeu21">meumeu21</a></p>
     <p>фигуры шахмат: <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces">wikimedia</a></p>
   </footer>
+  <div class="piece bishop" color="white">
+    <object data="static/chess-pieces/bishop-b.svg" type="image/svg+xml"></object>
+</div>
+<script>
+let objectElement = document.querySelector('.piece.bishop object');
+objectElement.onload = function () {
+    let svgDoc = objectElement.contentDocument; // Получаем доступ к документу SVG
+    let svgPaths = svgDoc.querySelectorAll('path'); // Получаем все элементы <path> внутри SVG
+
+    // Перекрашиваем каждый элемент <path> в синий
+    svgPaths.forEach(path => {
+        path.setAttribute('fill', 'blue');
+    });
+
+    // Если нужно перекрасить и другие элементы, например <g>, их можно обработать так же
+    let svgGroups = svgDoc.querySelectorAll('g');
+    svgGroups.forEach(group => {
+        group.setAttribute('fill', 'blue');
+        group.setAttribute('stroke', 'blue');
+    });
+};
+</script>
   <script type="text/javascript" src="js/reset-board.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/change-theme.js"></script>

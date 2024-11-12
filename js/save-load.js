@@ -1,5 +1,6 @@
 window.addEventListener("beforeunload", saveGameState);
 document.addEventListener("DOMContentLoaded", loadGameState);
+localStorage.clear();
 
 function saveGameState() {
   saveHighlightedCells();
@@ -58,7 +59,7 @@ function loadGameState() {
     if (gameState.theme) {
       const savedTheme = gameState.theme;
       console.log(savedTheme);
-      document.body.classList.remove('gray-theme', 'coral-theme');
+      document.body.classList.remove('gray-theme', 'coral-theme', 'rose-theme', 'sunrise-theme', 'default-theme');
       document.body.classList.add(savedTheme);
     }
   }

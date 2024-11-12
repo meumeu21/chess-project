@@ -6,7 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
   themeOptions.forEach(option => {
     option.addEventListener('click', function () {
       const selectedTheme = this.getAttribute('data-theme');
-      document.body.classList.remove('gray-theme', 'coral-theme', 'default-theme');
+      document.body.classList.remove('rose-theme', 'sunrise-theme', 'gray-theme', 'coral-theme', 'default-theme');
+      if (selectedTheme === 'rose') {
+        document.body.classList.add('rose-theme');
+      }
+      if (selectedTheme === 'sunrise') {
+        document.body.classList.add('sunrise-theme');
+      }
       if (selectedTheme === 'coral') {
         document.body.classList.add('coral-theme');
       }
