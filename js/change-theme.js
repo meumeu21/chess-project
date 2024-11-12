@@ -6,12 +6,15 @@ document.addEventListener('DOMContentLoaded', function () {
   themeOptions.forEach(option => {
     option.addEventListener('click', function () {
       const selectedTheme = this.getAttribute('data-theme');
-      document.body.classList.remove('gray-theme', 'coral-theme');
+      document.body.classList.remove('gray-theme', 'coral-theme', 'default-theme');
       if (selectedTheme === 'coral') {
         document.body.classList.add('coral-theme');
       }
       if (selectedTheme === 'gray') {
         document.body.classList.add('gray-theme');
+      }
+      if (selectedTheme === 'default') {
+        document.body.classList.add('default-theme');
       }
       themePopup.classList.remove('show');
     });

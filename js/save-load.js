@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", loadGameState);
 
 function saveGameState() {
   saveHighlightedCells();
-  const theme = document.body.classList[1];
-  const selectedTheme = theme.includes("-theme") ? document.body.classList[1] : " ";
+  const theme = document.body.classList[1] || "default-theme";
+  const selectedTheme = theme.includes("-theme") ? theme : "";
   const gameState = {
     isGameStarted: isGameStarted,
     timerInterval: timerInterval,
