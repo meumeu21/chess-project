@@ -288,28 +288,6 @@
     <p>автор: <a href="https://github.com/meumeu21">meumeu21</a></p>
     <p>фигуры шахмат: <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces">wikimedia</a></p>
   </footer>
-  <div class="piece bishop" color="white">
-    <object data="static/chess-pieces/bishop-b.svg" type="image/svg+xml"></object>
-</div>
-<script>
-let objectElement = document.querySelector('.piece.bishop object');
-objectElement.onload = function () {
-    let svgDoc = objectElement.contentDocument; // Получаем доступ к документу SVG
-    let svgPaths = svgDoc.querySelectorAll('path'); // Получаем все элементы <path> внутри SVG
-
-    // Перекрашиваем каждый элемент <path> в синий
-    svgPaths.forEach(path => {
-        path.setAttribute('fill', 'blue');
-    });
-
-    // Если нужно перекрасить и другие элементы, например <g>, их можно обработать так же
-    let svgGroups = svgDoc.querySelectorAll('g');
-    svgGroups.forEach(group => {
-        group.setAttribute('fill', 'blue');
-        group.setAttribute('stroke', 'blue');
-    });
-};
-</script>
   <script type="text/javascript" src="js/reset-board.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/change-theme.js"></script>
