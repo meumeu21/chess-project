@@ -15,6 +15,8 @@ let pgn = "";
 let viewedFEN = currentPosition;
 let viewedIndex = 0;
 positionArray.push(currentPosition);
+const fenBoard = document.getElementById("fen-board");
+fenBoard.value = currentPosition;
 
 const boardSquares = document.getElementsByClassName("square");
 const pieces = document.getElementsByClassName("piece");
@@ -25,9 +27,6 @@ setupBoardSquares();
 setupPieces();
 fillBoardSquaresArray();
 let startingPosition = generateFEN(boardSquaresArray);
-// getEvaluation(startingPosition,function(lines,evaluations,scoreString){
-//   displayEvaluation(lines,evaluations,scoreString,true,1);
-// })
 
 function fillBoardSquaresArray() {
   const boardSquares = document.getElementsByClassName("square");
@@ -193,6 +192,7 @@ function generateFEN(boardSquares) {
   let moveCount = Math.floor(moves.length / 2) + 1;
   fen += " " + moveCount;
   console.log(fen);
+  fenBoard.value = fen;
   return fen;
 }
 
@@ -1364,10 +1364,6 @@ function isMoveValidAgainstCheck(
 function checkForEndGame() {
   checkForCheckMateAndStaleMate();
   let currentPosition = generateFEN(boardSquaresArray);
-  // let moveCount = Math.floor(moves.length/2)+1;
-  // getEvaluation(currentPosition,function(lines,evaluations,scoreString){
-  //   displayEvaluation(lines,evaluations,scoreString,isWhiteTurn,moveCount);
-  // });
   positionArray.push(currentPosition);
   viewedIndex = positionArray.length -1;
   let threeFoldRepetition = isThreefoldRepetition();
@@ -1530,199 +1526,6 @@ function getAllPossibleMoves(squaresArray, color) {
     });
 }
 
-function getEvaluation(fen, callback) {
-  let engine = new Worker('../node_modules/stockfish/src/stockfish-nnue-16.js');
-  let evaluations = [];
-  let lines = [];
-  let possibleMoves =3;
-  engine.onmessage = function (event) {
-    let message = event.data;
-
-    if (message.startsWith("info depth 10")) {
-
-      let multipvIndex = message.indexOf("multipv");
-      if (multipvIndex !== -1) {
-        let multipvString = message.slice(multipvIndex).split(" ")[1];
-        let multipv = parseInt(multipvString);
-        let scoreIndex = message.indexOf("score cp");
-        if (scoreIndex !== -1) {
-          var scoreString = message.slice(scoreIndex).split(" ")[2];
-          let evaluation = parseInt(scoreString) / 100;
-          evaluation = isWhiteTurn ? evaluation : evaluation * -1;
-          evaluations[multipv - 1] = evaluation;
-        } else {
-
-          scoreIndex = message.indexOf("score mate");
-          scoreString = message.slice(scoreIndex).split(" ")[2];
-          evaluation = parseInt(scoreString);
-          evaluation = Math.abs(evaluation);
-          evaluations[multipv - 1] = "#" + evaluation;
-        }
-        let pvIndex = message.indexOf(" pv ");
-        if (pvIndex !== -1) {
-
-          let pvString = message.slice(pvIndex + 4).split(" ");
-          lines[multipv-1] = pvString.join(" ");
-          if (evaluations.length === possibleMoves && lines.length===possibleMoves) {
-            callback(lines,evaluations,scoreString);
-          }
-        }
-      }
-    }
-    if(message.startsWith("Nodes searched:")){
-      let parts = message.split(" ");
-      let numberOfMoves = parseInt(parts[2]);
-      if(numberOfMoves<3) {
-        possibleMoves = numberOfMoves;
-        line1.innerHTML="";line2.innerHTML="";line3.innerHTML="";
-        eval1.innerHTML=""; eval2.innerHTML=""; eval3.innerHTML="";
-      }
-    }
-
-  };
-
-  engine.postMessage("uci");
-  engine.postMessage("isready");
-  engine.postMessage("ucinewgame");
-  engine.postMessage(`setoption name multipv value 3`);
-  engine.postMessage("position fen " + fen);
-  engine.postMessage("go perft 1");
-  engine.postMessage("go depth 10");
-
-}
-
-function displayEvaluation (lines,evaluations,scoreString,whiteTurn=true,moveNumber=1) {
-  let blackBar = document.querySelector(".blackBar");
-  let blackBarHeight = 50 - (evaluations[0] / 15) * 100;
-  blackBarHeight =
-    blackBarHeight > 100 ? (blackBarHeight = 100) : blackBarHeight;
-  blackBarHeight =
-    blackBarHeight <0 ? (blackBarHeight = 0) : blackBarHeight;
-  blackBar.style.height = blackBarHeight + "%";
-  let evalNum =document.querySelector(".evalNum");
-  evalNum.innerHTML = evaluations[0];
-  for (let i=0;i<lines.length;i++) {
-    let eval = document.getElementById("eval"+(i+1));
-    let line =document.getElementById("line"+(i+1));
-    eval.innerHTML = evaluations[i];
-     line.innerHTML = convertStockfishToStandardNotation(lines[i],moveNumber,whiteTurn);
-    //line.innerHTML = lines[i];
-
-    document.getElementById("eval").innerHTML = evaluations[0];
-    if(Math.abs(evaluations[0]<0.5))
-      document.getElementById("evalText").innerHTML = "Equal";
-    if(evaluations[0]<1 && evaluations[0]>=0.5)
-     document.getElementById("evalText").innerHTML = "White is slightly better";
-    if(evaluations[0]> -1 && evaluations[0]<=-0.5)
-      document.getElementById("evalText").innerHTML = "Black is slightly better";
-    if(evaluations[0]<2 && evaluations[0]>=1)
-      document.getElementById("evalText").innerHTML = "White is much better";
-    if(evaluations[0]> -2 && evaluations[0]<= -1)
-      document.getElementById("evalText").innerHTML = "Black is much better";
-    if(evaluations[0]>2)
-      document.getElementById("evalText").innerHTML = "White is winning";
-    if(evaluations[0]< -2)
-      document.getElementById("evalText").innerHTML = "Black is winning";
-
-    if(evaluations[0].toString().includes("#")) {
-      const mateInMoves = evaluations[0].slice(1);
-      const isWhiteWinning = (parseInt(scoreString)>0 && isWhiteTurn) ||(parseInt(scoreString)<0 && !isWhiteTurn);
-      const winningColor = isWhiteWinning ? "White" : "Black";
-      document.getElementById("evalText").innerHTML = `${winningColor} can mate in ${mateInMoves} moves`;
-      blackBarHeight = isWhiteWinning? 0 : 100;
-      blackBar.style.height = blackBarHeight+"%";
-    }
-  }
-
-}
-
-function convertStockfishToStandardNotation(stockfishMoves,moveNumber,whiteTurn){
-  let standardMoves = "";
-  let moves = stockfishMoves.split(" ");
-  let boardSquaresArrayCopy = deepCopyArray(boardSquaresArray);
-  for(let i=0;i<moves.length;i++) {
-    let move = moves[i];
-    let from = move.substring(0,2);
-    let to =  move.substring(2,4);
-    let promotion = move.length>4? move.charAt(4) : null;
-    let fromSquare = boardSquaresArrayCopy.find(square=>square.squareId===from);
-    let toSquare = getPieceAtSquare(to,boardSquaresArrayCopy);
-    if(fromSquare&&toSquare) {
-      let fromPiece = fromSquare.pieceType;
-      switch(fromPiece.toLowerCase()) {
-        case "pawn":
-          fromPiece="";
-          break;
-          case "knight":
-            fromPiece="N";
-            break;
-          case "bishop":
-            fromPiece="B";
-            break;
-          case "rook":
-            fromPiece="R";
-            break;
-          case "queen":
-            fromPiece="Q";
-            break;
-          case "king":
-            fromPiece="K";
-            break;
-      }
-      let captureSymbol="";
-      if((toSquare.pieceType !=="blank") || (toSquare.pieceType=="blank" && fromSquare.pieceType.toLowerCase()==="pawn" && from.charAt(0)!=to.charAt(0))){
-        captureSymbol="x";
-        if(fromSquare.pieceType.toLowerCase()==="pawn") {
-          fromPiece = from.charAt(0);
-        }
-      }
-      let standardMove = `${fromPiece}${captureSymbol}${to}`;
-      if(promotion){
-        switch(promotion.toLowerCase()){
-          case "q":
-          standardMove+="=Q";
-          break;
-          case "r":
-            standardMove+="=R";
-            break;
-          case "b":
-            standardMove+="=B";
-            break;
-          case "n":
-            standardMove+="=N";
-            break;
-        }
-      }
-      let kingColor = fromSquare.pieceColor == "white" ? "black":"white";
-      let kingSquareId = getKingSquare(kingColor,boardSquaresArrayCopy);
-      updateBoardSquaresArray(from,to,boardSquaresArrayCopy);
-
-      if(isKingInCheck(kingSquareId,kingColor,boardSquaresArrayCopy)) {
-        standardMove +="+";
-      }
-      if((standardMove =="Kg8" && fromSquare.squareId=="e8")||(standardMove == "Kg1" && fromSquare.squareId=="e1")) {
-        if(standardMove ==="Kg8")
-         updateBoardSquaresArray("h8","f8",boardSquaresArrayCopy);
-        else
-         updateBoardSquaresArray("h1","f1",boardSquaresArrayCopy);
-         standardMove = "O-O";
-
-      }
-      if((standardMove =="Kc8" && fromSquare.squareId=="e8")||(standardMove == "Kc1" && fromSquare.squareId=="e1")) {
-        if(standardMove ==="Kc8")
-         updateBoardSquaresArray("a8","d8",boardSquaresArrayCopy);
-        else
-         updateBoardSquaresArray("a1","d1",boardSquaresArrayCopy);
-        standardMove = "O-O-O";
-      }
-      standardMoves += `${(whiteTurn && i%2==0)||(!whiteTurn && i%2 ==1)? " "+moveNumber++ + "." : " "}${standardMove}`;
-
-      if(!whiteTurn && i==0) standardMoves = `${moveNumber+". ... "}${standardMove} `;
-    }
-  }
-  return standardMoves.trim();
-}
-
 function convertToStandardNotation(move){
   let standardMove = "";
   let boardSquaresArrayCopy = deepCopyArray(boardSquaresArray);
@@ -1870,135 +1673,6 @@ function recreateHTMLFromPGN(pgn) {
   pgnContainer.scrollTop = pgnContainer.scrollHeight;
 }
 
-stepBackward.addEventListener("click",()=>{
-  moveBackward();
-});
-stepForward.addEventListener("click",()=>{
-  moveForward();
-});
-fastBackward.addEventListener("click",()=>{
-  moveToStart();
-});
-fastForward.addEventListener("click",()=>{
-  moveToEnd();
-});
-
-function moveBackward() {
-  if(viewedIndex>0) {
-    viewedIndex--;
-    viewedIndex>0 ?  highlightMove(viewedIndex) : {};
-    allowMovement = false;
-  }
-  updatePosition();
-}
-function moveForward() {
-  if(viewedIndex < positionArray.length-1) {
-    viewedIndex++;
-    highlightMove(viewedIndex);
-    updatePosition();
-  }
-  if(viewedIndex === positionArray.length-1)
-    allowMovement = true;
-}
-function moveToStart() {
-  if(viewedIndex >=0) {
-    viewedIndex =1;
-    highlightMove(1);
-    updatePosition();
-  }
-  allowMovement = false;
-}
-function moveToEnd() {
-  if(viewedIndex>=0) {
-    viewedIndex = positionArray.length-1;
-    updatePosition();
-  }
-  if(viewedIndex>0)
-    highlightMove(viewedIndex);
-  allowMovement = true;
-}
-
-function highlightMove(viewedIndex) {
-  let moveElement = document.getElementById(viewedIndex-1);
-  clearHighlight();
-  highlightLastMove(viewedIndex);
-  document.querySelectorAll(".highlighted").forEach(element=>{
-    element.classList.remove("highlighted");
-  });
-  if (moveElement) {
-    moveElement.classList.add("highlighted");
-  }
-}
-function updatePosition() {
-  viewedFEN = positionArray[viewedIndex];
-  loadPositionFromFEN(viewedFEN);
-}
-
-function loadPositionFromFEN(fen) {
-  const pieceMap = {
-    'p': 'pawn',
-    'r': 'rook',
-    'n': 'knight',
-    'b': 'bishop',
-    'q': 'queen',
-    'k': 'king',
-    'P': 'pawn',
-    'R': 'rook',
-    'N': 'knight',
-    'B': 'bishop',
-    'Q': 'queen',
-    'K': 'king'
-  };
-
-  const rows = fen.split(' ')[0].split('/');
-  const board = document.getElementById('board'); // Assuming your board has an id of 'board'
-
-  clearBoard();
-
-  rows.forEach((row, rowIndex) => {
-    let columnIndex = 0;
-    for (const char of row) {
-      if (isNaN(char)) { // It's a piece
-        const pieceType = pieceMap[char];
-        const color = char === char.toUpperCase() ? 'white' : 'black';
-        const squareId = String.fromCharCode(97 + columnIndex) + (8 - rowIndex);
-
-        const piece = createChessPiece(pieceType, color, "piece") ;
-
-        const square = document.getElementById(squareId);
-        square.appendChild(piece);
-
-        columnIndex++;
-      } else {
-        columnIndex += parseInt(char); // It's a number of empty squares
-      }
-    }
-  });
-  setupPieces();
-  boardSquaresArray = [];
-  fillBoardSquaresArray();
-}
-
-function clearBoard() {
-  for (let i = 0; i < boardSquares.length; i++) {
-    boardSquares[i].innerHTML = '';
-
-    if (i >= 56) {
-      const fileLabel = document.createElement("div");
-      fileLabel.classList.add("coordinate");
-      fileLabel.innerText = files[i % 8];
-      boardSquares[i].appendChild(fileLabel);
-    }
-
-    if ((i + 1) % 8 == 0) {
-      const rankLabel = document.createElement("div");
-      rankLabel.classList.add("coordinate", "rank");
-      rankLabel.innerText = ranks[7 - Math.floor(i / 8)];
-      boardSquares[i].appendChild(rankLabel);
-    }
-  }
-}
-
 
 // not negotiable
 
@@ -2021,81 +1695,4 @@ function checkForCheckMateAndStaleMate() {
   else message = "ничья";
   showAlert(message);
   endGame();
-}
-
-function showAlert(message) {
-  const alert= document.getElementById("winning-message");
-  const turn = document.getElementsByClassName("turn")[0];
-  alert.innerHTML=message;
-  alert.style.display="block";
-  turn.style.display = "none";
-}
-
-
-function updateTimer() {
-  seconds++;
-  const timerElement = document.getElementById("timer");
-  timerElement.innerText = formatTime(seconds);
-}
-function formatTime(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-}
-function checkAndStartGame() {
-  if (!isGameStarted) {
-    isGameStarted = true;
-    seconds = 0;
-    timerInterval = setInterval(updateTimer, 1000);
-  }
-}
-function endGame() {
-  clearInterval(timerInterval);
-  isGameStarted = false;
-}
-function loadTime() {
-  const timerElement = document.getElementById("timer");
-  if (document.getElementById("winning-message").style.display != "block") {
-    if (isGameStarted) {
-      timerElement.innerText = formatTime(seconds);
-      timerInterval = setInterval(updateTimer, 1000);
-    } else {
-      seconds = 0;
-      timerElement.innerText = "00:00";
-    }
-  } else {
-    timerElement.innerText = formatTime(seconds);
-  }
-}
-
-function highlightPossibleMoves(legalSquares) {
-  legalSquares.forEach((squareId) => {
-    const square = document.getElementById(squareId);
-    if (square) {
-      square.classList.add("highlight");
-    }
-  });
-}
-function clearHighlight() {
-  Array.from(boardSquares).forEach((square) => {
-    square.classList.remove("highlight");
-    square.classList.remove("highlight-last-move");
-  });
-}
-chessBoard.addEventListener("drop", () => {
-  clearHighlight();
-  highlightLastMove(viewedIndex);
-});
-function highlightLastMove(viewedIndex) {
-  if (moves.length === 0) return;
-  let lastMove = moves[viewedIndex - 1];
-  let fromSquare = document.getElementById(lastMove.from);
-  let toSquare = document.getElementById(lastMove.to);
-  fromSquare.classList.add("highlight-last-move");
-  toSquare.classList.add("highlight-last-move");
-}
-
-function displayTurn() {
-  let turnText = document.getElementById("turn");
-  turnText.innerText = isWhiteTurn ? "белых" : "чёрных";
 }

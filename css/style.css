@@ -11,6 +11,8 @@
   --chess-board-border-color: #000;
   --white-square-color: #eeeed2;
   --black-square-color: #769656;
+  --filter-for-white-pieces: grayscale(1);
+  --filter-for-black-pieces: grayscale(1);
   --button-font-color: #fff;
   --button-hover-color: #497a79;
   --link-color: #baca44;
@@ -41,6 +43,8 @@
   --chess-board-border-color: #000;
   --white-square-color: #f4f3ee;
   --black-square-color: #e0afa0;
+  --filter-for-white-pieces: invert(68%) sepia(7%) saturate(130%) hue-rotate(10deg) brightness(93%) contrast(92%);
+  --filter-for-black-pieces: invert(47%) sepia(18%) saturate(1395%) hue-rotate(327deg) brightness(91%) contrast(93%);
   --button-font-color: #fff;
   --button-hover-color: #6D5B54;
   --link-color: #ad3b5a;
@@ -71,6 +75,8 @@
   --chess-board-border-color: #BC3908;
   --white-square-color: #FDF1D8;
   --black-square-color: #BC3908;
+  --filter-for-white-pieces: invert(91%) sepia(29%) saturate(181%) hue-rotate(344deg) brightness(90%) contrast(88%);
+  --filter-for-black-pieces: invert(16%) sepia(42%) saturate(2260%) hue-rotate(351deg) brightness(97%) contrast(98%);
   --button-font-color: #ffffff;
   --button-hover-color: #ff8b61;
   --link-color: #ff8b61;
@@ -99,8 +105,10 @@
   --content-background-color: #ffe9c5;
   --content-font-color: #2d2d2d;
   --chess-board-border-color: #ff4e50;
-  --white-square-color: #fffbf0;
+  --white-square-color: #dcd8ce;
   --black-square-color: #e63946;
+  --filter-for-white-pieces: invert(78%) sepia(4%) saturate(546%) hue-rotate(5deg) brightness(91%) contrast(89%);
+  --filter-for-black-pieces: invert(18%) sepia(96%) saturate(2483%) hue-rotate(340deg) brightness(72%) contrast(87%);
   --button-font-color: #ffffff;
   --button-hover-color: #ff8b61;
   --link-color: #ffb703;
@@ -131,6 +139,8 @@
   --chess-board-border-color: #2b3e50;
   --white-square-color: #f0f0e8;
   --black-square-color: #3b4b3c;
+  --filter-for-white-pieces: invert(90%) sepia(2%) saturate(1042%) hue-rotate(22deg) brightness(91%) contrast(81%);
+  --filter-for-black-pieces: invert(14%) sepia(2%) saturate(1942%) hue-rotate(75deg) brightness(97%) contrast(85%);
   --button-font-color: #ffffff;
   --button-hover-color: #314f4f;
   --link-color: #a8c256;
@@ -240,6 +250,55 @@
   max-width: 100%;
   width: 100%;
   height: auto;
+  border-color:rgba(64, 255, 0, 0.3);
+}
+
+.rook[color="black"] img {
+  filter: var(--filter-for-black-pieces);
+}
+
+.knight[color="black"] img {
+  filter: var(--filter-for-black-pieces);
+}
+
+.bishop[color="black"] img {
+  filter: var(--filter-for-black-pieces);
+}
+
+.queen[color="black"] img {
+  filter: var(--filter-for-black-pieces);
+}
+
+.king[color="black"] img {
+  filter: var(--filter-for-black-pieces);
+}
+
+.pawn[color="black"] img {
+  filter: var(--filter-for-black-pieces);
+}
+
+.rook[color="white"] img {
+  filter: var(--filter-for-white-pieces);
+}
+
+.knight[color="white"] img {
+  filter: var(--filter-for-white-pieces);
+}
+
+.bishop[color="white"] img {
+  filter: var(--filter-for-white-pieces);
+}
+
+.queen[color="white"] img {
+  filter: var(--filter-for-white-pieces);
+}
+
+.king[color="white"] img {
+  filter: var(--filter-for-white-pieces);
+}
+
+.pawn[color="white"] img {
+  filter: var(--filter-for-white-pieces);
 }
 
 .chess-buttons {
@@ -295,6 +354,14 @@
   margin-bottom: 20px;
 }
 
+#fen-board {
+  margin-top: 10px;
+  height: 40px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+}
+
 .footer {
   min-height: 30px;
   width: 60%;
@@ -309,6 +376,7 @@
   margin: 0 5px;
   flex: 1;
   font-size: 18px;
+  text-align: center;
 }
 
 a {
