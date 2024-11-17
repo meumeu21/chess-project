@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FEN Viewer для Шахмат">
+  <meta name="keywords" content="html, css, javascript, chess, fen">
+  <meta name="author" content="meumeu21">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style-for-fen.css">
+  <link rel="stylesheet" href="css/fontawesome/css/all.css">
+  <!-- иконки -->
+  <link rel="icon" type="image/x-icon" href="https://meumeu21.github.io/chess-project/static/favicon/favicon.ico">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/favicon-16x16.png">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/android-chrome-512x512.png">
+  <link rel="icon" type="image/png" href="https://meumeu21.github.io/chess-project/static/favicon/apple-touch-icon.png">
+  <!-- иконки конец -->
+  <title>FEN Viewer для Шахмат на JavaScript</title>
+</head>
+<body class="page">
+  <header class="header">
+    <h1 class="header__title">просмотр fen (fen viewer)</h1>
+  </header>
+  <main class="content">
+    <div id="fen-board-viewer"></div>
+    <div class="chess-board">
+      <!-- 8th rank -->
+      <div class="square square_white">
+        <div class="piece rook" color="black">
+          <img src="static/chess-pieces/rook-b.svg" alt="brook">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece knight" color="black">
+          <img src="static/chess-pieces/knight-b.svg" alt="bknight">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece bishop" color="black">
+          <img src="static/chess-pieces/bishop-b.svg" alt="bbishop">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece queen" color="black">
+          <img src="static/chess-pieces/queen-b.svg" alt="bqueen">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece king" color="black">
+          <img src="static/chess-pieces/king-b.svg" alt="bking">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece bishop" color="black">
+          <img src="static/chess-pieces/bishop-b.svg" alt="bbishop">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece knight" color="black">
+          <img src="static/chess-pieces/knight-b.svg" alt="bknight">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="coordinate rank">8</div>
+        <div class="piece rook" color="black">
+          <img src="static/chess-pieces/rook-b.svg" alt="brook">
+        </div>
+      </div>
+      <!-- 7th rank -->
+      <div class="square square_black">
+        <div class="piece pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="coordinate rank">7</div>
+        <div class="piece pawn" color="black">
+          <img src="static/chess-pieces/pawn-b.svg" alt="bpawn">
+        </div>
+      </div>
+      <!-- 6th rank -->
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black">
+        <div class="coordinate rank">6</div>
+      </div>
+      <!-- 5th rank -->
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white">
+        <div class="coordinate rank">5</div>
+      </div>
+      <!-- 4th rank -->
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black">
+        <div class="coordinate rank">4</div>
+      </div>
+      <!-- 3rd rank -->
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white"></div>
+      <div class="square square_black"></div>
+      <div class="square square_white">
+        <div class="coordinate rank">3</div>
+      </div>
+      <!-- 2nd rank -->
+      <div class="square square_white">
+        <div class="piece pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="piece pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="piece pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="coordinate rank">2</div>
+        <div class="piece pawn" color="white">
+          <img src="static/chess-pieces/pawn-w.svg" alt="wpawn">
+        </div>
+      </div>
+      <!-- 1st rank -->
+      <div class="square square_black">
+        <div class="coordinate">a</div>
+        <div class="piece rook" color="white">
+          <img src="static/chess-pieces/rook-w.svg" alt="wrook">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="coordinate">b</div>
+        <div class="piece knight" color="white">
+          <img src="static/chess-pieces/knight-w.svg" alt="wknight">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="coordinate">c</div>
+        <div class="piece bishop" color="white">
+          <img src="static/chess-pieces/bishop-w.svg" alt="wbishop">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="coordinate">d</div>
+        <div class="piece queen" color="white">
+          <img src="static/chess-pieces/queen-w.svg" alt="wqueen">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="coordinate">e</div>
+        <div class="piece king" color="white">
+          <img src="static/chess-pieces/king-w.svg" alt="wking">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="coordinate">f</div>
+        <div class="piece bishop" color="white">
+          <img src="static/chess-pieces/bishop-w.svg" alt="wbishop">
+        </div>
+      </div>
+      <div class="square square_black">
+        <div class="coordinate">g</div>
+        <div class="piece knight" color="white">
+          <img src="static/chess-pieces/knight-w.svg" alt="wknight">
+        </div>
+      </div>
+      <div class="square square_white">
+        <div class="coordinate">h</div>
+        <div class="coordinate rank">1</div>
+        <div class="piece rook" color="white">
+          <img src="static/chess-pieces/rook-w.svg" alt="wrook">
+        </div>
+      </div>
+    </div>
+    <div class="chess-buttons">
+      <h2>меню</h2>
+      <div class="buttons-of-chess">
+        <button class="chess-button" id="start">сбросить доску</button>
+        <button class="chess-button" id="set-position">загрузить fen-код</button>
+        <div class="toggler">
+          <span>ход белых?</span>
+          <div class="toggle-container">
+            <input type="checkbox" id="toggle-iswhite" class="toggle-checkbox" checked>
+            <label for="toggle-iswhite" class="toggle-label">
+              <span class="toggle-button"></span>
+            </label>
+          </div>
+        </div>
+        <div class="castling-menu">
+          <h3 class="castling-menu-heading">меню рокировок</h3>
+          <span>рокировка доступна со стороны</span>
+          <div class="toggler">
+            <span>белого короля?</span>
+            <div class="toggle-container">
+              <input type="checkbox" id="toggle-iswhiteking" class="toggle-checkbox" checked>
+              <label for="toggle-iswhiteking" class="toggle-label">
+                <span class="toggle-button"></span>
+              </label>
+            </div>
+          </div>
+          <div class="toggler">
+            <span>белого ферзя?</span>
+            <div class="toggle-container">
+              <input type="checkbox" id="toggle-iswhitequeen" class="toggle-checkbox" checked>
+              <label for="toggle-iswhitequeen" class="toggle-label">
+                <span class="toggle-button"></span>
+              </label>
+            </div>
+          </div>
+          <div class="toggler">
+            <span>черного короля?</span>
+            <div class="toggle-container">
+              <input type="checkbox" id="toggle-isblackking" class="toggle-checkbox" checked>
+              <label for="toggle-isblackking" class="toggle-label">
+                <span class="toggle-button"></span>
+              </label>
+            </div>
+          </div>
+          <div class="toggler">
+            <span>черного ферзя?</span>
+            <div class="toggle-container">
+              <input type="checkbox" id="toggle-isblackqueen" class="toggle-checkbox" checked>
+              <label for="toggle-isblackqueen" class="toggle-label">
+                <span class="toggle-button"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <button class="chess-button" id="open-theme-popup">переключить тему</button>
+        <button class="chess-button" onclick="window.location.href='index.html'">перейти в обычный режим</button>
+      </div>
+    </div>
+    <div id="theme-popup" class="popup">
+      <div class="popup-content">
+        <h3>выберите тему</h3>
+        <button class="theme-option" data-theme="default">основная тема</button>
+        <button class="theme-option" data-theme="rose">розовая тема</button>
+        <button class="theme-option" data-theme="sunrise">тема цвета заката</button>
+        <button class="theme-option" data-theme="coral">коралловая тема</button>
+        <button class="theme-option" data-theme="gray">серая тема</button>
+        <button id="close-popup" class="close-btn">закрыть</button>
+      </div>
+    </div>
+    <div id="set-fen-popup" class="popup">
+      <div class="popup-content">
+        <h3>введите fen-код</h3>
+        <textarea id="fen-board"></textarea>
+        <button class="popup-fen-button" id="popup-fen-button">загрузить fen-код</button>
+        <button id="close-fen-popup" class="close-btn">закрыть</button>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>автор: <a href="https://github.com/meumeu21">meumeu21</a></p>
+    <p>фигуры шахмат: <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces">wikimedia</a></p>
+    <p><a href="https://codepen.io/sosuke/pen/Pjoqqp?__cf_chl_jschl_tk__=ecc0b72797ae71bc009d6322e3e470773936b386-1604211766-0-ASpz720gXnc6Ej0vzlgY9-KLmlPkldgcOx1wAmGTUCjLZLOxkArNxpRzZ9m8woL-NGmP9LBGVPws8UxMJZrR7O1qFH6QkKtrGVPw6StRnXiK1XTQR_nY905r0XobAG2nOmyC6Zq8mdyPDp1MyHD7JLodJUXCRViXhtmLmRVE_-JGarVJRlxs6k3DzAOQQEJewfp00DjhlD0mxr8ZKpk2yq6IPTZZQ52XYxh26FC5MxLHhs7LuAwhtolmDZyp4_IuwRg8I5m-2--MmvGE8CCqjRWrkE85zgkMXPlOqcZtppRpZhn6Uz9DZAuKheHwVBb0ySIhFYG92bvQOgiKX0TTswB1SHgOLIeqktuyUaAgxI_h">css filter generator</a></p>
+  </footer>
+  <script type="text/javascript" src="js/change-theme.js"></script>
+  <script type="text/javascript" src="js/fen/save-theme.js"></script>
+  <script type="text/javascript" src="js/fen/reset-board.js"></script>
+  <script type="module" src="js/fen/set-fen-position.js"></script>
+  <script type="text/javascript" src="js/fen/main.js"></script>
+  <script type="text/javascript" src="js/chess-moves.js"></script>
+  <script type="text/javascript" src="js/fen/chess-castling-promotion.js"></script>
+  <script type="text/javascript" src="js/fen/chess-buttons.js"></script>
+</body>
+</html>

@@ -22,7 +22,7 @@ function saveGameState() {
     alertDisplay: document.getElementById("winning-message").style.display,
     alertMessage: document.getElementById("winning-message").innerText,
     turnDisplay: document.getElementsByClassName("turn")[0].style.display,
-    theme: selectedTheme
+    theme: selectedTheme,
   };
   localStorage.setItem('chessGameState', JSON.stringify(gameState));
 }
@@ -44,6 +44,7 @@ function loadGameState() {
     pgn = gameState.pgn;
     viewedFEN = gameState.viewedFEN;
     viewedIndex = gameState.viewedIndex;
+    fenBoard.value = viewedFEN;
 
     renderChessBoard(boardSquaresArray);
     restoreHighlightedCells();

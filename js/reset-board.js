@@ -91,6 +91,7 @@ function resetBoard() {
 
   const timerElement = document.getElementById("timer");
   timerElement.innerText = "00:00";
+  endGame();
 
   const pgnContainer = document.getElementById("pgnContainer");
   pgnContainer.innerHTML = '';
@@ -108,6 +109,7 @@ function resetBoard() {
   currentPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
   pgn = "";
   viewedFEN = currentPosition;
+  fenBoard.value = viewedFEN;
   viewedIndex = 0;
   positionArray.push(currentPosition);
 }

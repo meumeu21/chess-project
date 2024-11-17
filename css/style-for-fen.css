@@ -1,0 +1,99 @@
+#fen-board-viewer {
+  width: 80%;
+  margin: 20px auto;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 2px solid var(--gameinfo-border-color);
+}
+
+.toggle-container {
+  display: inline-block;
+  position: relative;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.toggle-button {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 21px;
+  height: 21px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-checkbox:checked + .toggle-label {
+  background-color: var(--body-color);
+}
+
+.toggle-checkbox:checked + .toggle-label .toggle-button {
+  transform: translateX(25px);
+}
+
+.toggler {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.castling-menu {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px auto;
+  flex-wrap: wrap;
+}
+
+.castling-menu-heading {
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 860px) {
+  .buttons-of-chess {
+    max-height: 360px;
+    width: 420px;
+    flex-wrap: wrap;
+  }
+}
+
+.popup-fen-button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "pixfont";
+  border: 0;
+  border-radius: 5px;
+  background: var(--body-color);
+  color: var(--button-font-color);
+}
+
+.popup-fen-button:hover {
+  background-color: var(--button-hover-color);
+}

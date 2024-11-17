@@ -247,35 +247,40 @@
     </div>
     <div class="chess-buttons">
       <h2>игровое меню</h2>
-      <p id="winning-message">белые выиграли!</p>
-      <div class="turn">ход <span id="turn">белых</span></div>
-      <button class="chess-button" id="start">начать с начала</button>
-      <div id="gameInfo">
-        <p>ходы</p>
-        <div id="moveNavigation">
-          <div id="fastBackward" class="navigation">
-            <i class="fa fa-fast-backward"></i>
+      <div class="buttons-of-chess">
+        <p id="winning-message">белые выиграли!</p>
+        <div class="turn">ход <span id="turn">белых</span></div>
+        <button class="chess-button" id="start">начать с начала</button>
+        <div id="gameInfo">
+          <p>ходы</p>
+          <div id="moveNavigation">
+            <div id="fastBackward" class="navigation">
+              <i class="fa fa-fast-backward"></i>
+            </div>
+            <div id="stepBackward" class="navigation">
+              <i class="fa fa-step-backward"></i>
+            </div>
+            <div id="stepForward" class="navigation">
+              <i class="fa fa-step-forward"></i>
+            </div>
+            <div id="fastForward" class="navigation">
+              <i class="fa fa-fast-forward"></i>
+            </div>
           </div>
-          <div id="stepBackward" class="navigation">
-            <i class="fa fa-step-backward"></i>
-          </div>
-          <div id="stepForward" class="navigation">
-            <i class="fa fa-step-forward"></i>
-          </div>
-          <div id="fastForward" class="navigation">
-            <i class="fa fa-fast-forward"></i>
-          </div>
+          <div id="pgnContainer"></div>
+          <div class="gameInfo-footer"></div>
         </div>
-        <div id="pgnContainer"></div>
-        <div class="gameInfo-footer"></div>
+        <div class="timer">время игры: <span id="timer">00:00</span></div>
+        <button class="chess-button" id="open-theme-popup">переключить тему</button>
+        <h3>fen-код:</h3>
+        <textarea id="fen-board"></textarea>
+        <button class="chess-button" id="save-load-game-popup-button">сохранить/загрузить игру из файла</button>
+        <button class="chess-button" onclick="window.location.href='fen-viewer.html'">перейти в режим просмотра fen</button>
       </div>
-      <div class="timer">время игры: <span id="timer">00:00</span></div>
-      <button class="chess-button" id="open-theme-popup">переключить тему</button>
-      <textarea id="fen-board"></textarea>
     </div>
     <div id="theme-popup" class="popup">
       <div class="popup-content">
-        <h2>выберите тему</h2>
+        <h3>выберите тему</h3>
         <button class="theme-option" data-theme="default">основная тема</button>
         <button class="theme-option" data-theme="rose">розовая тема</button>
         <button class="theme-option" data-theme="sunrise">тема цвета заката</button>
@@ -284,16 +289,30 @@
         <button id="close-popup" class="close-btn">закрыть</button>
       </div>
     </div>
+    <div id="save-load-popup" class="popup">
+      <div class="popup-content">
+        <h3>cохранить/загрузить игру</h3>
+        <button class="save-load-button" id="save-game-file">сохранить в файл</button>
+        <input id="load-game-file" type="file" style="display: none;" />
+        <button class="save-load-button" id="upload-game-file">загрузить из файла</button>
+        <button id="close-sl-popup" class="close-btn">закрыть</button>
+      </div>
+    </div>
   </main>
   <footer class="footer">
     <p>автор: <a href="https://github.com/meumeu21">meumeu21</a></p>
     <p>фигуры шахмат: <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces">wikimedia</a></p>
     <p><a href="https://codepen.io/sosuke/pen/Pjoqqp?__cf_chl_jschl_tk__=ecc0b72797ae71bc009d6322e3e470773936b386-1604211766-0-ASpz720gXnc6Ej0vzlgY9-KLmlPkldgcOx1wAmGTUCjLZLOxkArNxpRzZ9m8woL-NGmP9LBGVPws8UxMJZrR7O1qFH6QkKtrGVPw6StRnXiK1XTQR_nY905r0XobAG2nOmyC6Zq8mdyPDp1MyHD7JLodJUXCRViXhtmLmRVE_-JGarVJRlxs6k3DzAOQQEJewfp00DjhlD0mxr8ZKpk2yq6IPTZZQ52XYxh26FC5MxLHhs7LuAwhtolmDZyp4_IuwRg8I5m-2--MmvGE8CCqjRWrkE85zgkMXPlOqcZtppRpZhn6Uz9DZAuKheHwVBb0ySIhFYG92bvQOgiKX0TTswB1SHgOLIeqktuyUaAgxI_h">css filter generator</a></p>
   </footer>
-  <script type="text/javascript" src="js/reset-board.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/reset-board.js"></script>
+  <script type="text/javascript" src="js/chess-moves.js"></script>
+  <script type="text/javascript" src="js/chess-draw-rules.js"></script>
+  <script type="text/javascript" src="js/chess-castling-promotion.js"></script>
+  <script type="text/javascript" src="js/chess-pgn.js"></script>
   <script type="text/javascript" src="js/chess-buttons.js"></script>
   <script type="text/javascript" src="js/change-theme.js"></script>
+  <script type="text/javascript" src="js/save-load-game-file.js"></script>
   <script type="text/javascript" src="js/save-load.js"></script>
 </body>
 </html>
