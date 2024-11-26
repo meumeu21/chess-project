@@ -1,4 +1,4 @@
-let isServerUsed = false;
+let isServerUsed = true;
 
 let isGameStarted = false;
 let timerInterval;
